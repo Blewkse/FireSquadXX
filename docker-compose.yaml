@@ -1,14 +1,23 @@
 version: "3"
 services:
-  firesquadxx_front:
-    container_name: firesquadxx_front_container
+  firesquadxx_backend:
+    container_name: firesquadxx_backend_container
     build:
       context: ./backend
-      dockerfile: Dockerfile
     volumes:
-      - ./:/app
+      - ./backend:/app
       - /app/node_modules
-    command: npm run dev
     ports:
       - 8000:8000
+    restart: always
+
+  firesquadxx_frontend:
+    container_name: firesquadxx_frontend_container
+    build:
+      context: ./frontend
+    volumes:
+      - .frontend/:/app
+      - /app/node_modules
+    ports:
+      - 8001:8001
     restart: always
