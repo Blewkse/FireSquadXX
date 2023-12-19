@@ -1,0 +1,13 @@
+version: "3"
+services:
+  firesquadxx_front:
+    container_name: firesquadxx_front_container
+    build:
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    command: npm run dev
+    ports:
+      - 8000:8000
+    restart: always
