@@ -6,7 +6,7 @@ abstract class TerritoryBurnable {
   public position: { x: number; y: number };
   public mapMatrix: (TerritoryBurnable | TerritoryUnburnable)[][];
 
-  updateBurningState = () => {
+  updateBurningState = (fire: Fire) => {
     const { x, y } = this.position;
     const { mapMatrix } = this;
     const neighbors = [
@@ -27,6 +27,7 @@ abstract class TerritoryBurnable {
     if (!isBurning && hasBurningNeighbor) {
       setTimeout(() => {
         this.isBurning = true;
+        FireFactory.update(fire, this.position);
       }, this.propagationTime * 1000);
     }
   };
