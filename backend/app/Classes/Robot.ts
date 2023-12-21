@@ -1,11 +1,16 @@
+import { robotState, robotType } from "./enumRobot";
+
 abstract class Robot {
-  name: string;
+  type: robotType;
   speed: number;
-  CanPutOut: boolean;
-  Capacity: number;
-  Position: {
+  canPutOut: boolean;
+  capacity: number;
+  position: {
     x: number;
     y: number;
   };
-  WaterLvL: number;
+  waterLvL: number;
+  state: robotState;
 }
+
+export default Robot;
