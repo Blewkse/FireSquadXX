@@ -2,12 +2,11 @@ import Robot from "./Robot";
 import Citerne from "./Citerne";
 import Rapido from "./Rapido";
 import Extincteur from "./Extincteur";
-import { robotState, robotType } from "./enumRobot";
 
 class RobotFactory {
   listRobot: Array<Robot> = [];
 
-  public instantiateCasern() {
+  constructor() {
     this.listRobot.push(new Citerne());
     this.listRobot.push(new Citerne());
     this.listRobot.push(new Citerne());

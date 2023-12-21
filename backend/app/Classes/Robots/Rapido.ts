@@ -2,9 +2,9 @@ import Robot from "./Robot";
 import { robotType } from "./enumRobot";
 
 class Rapido extends Robot {
-  constructor() {
-    super();
-    this.speed = 100;
+  constructor(id: number) {
+    super(id);
+    this.speed = 75;
     this.canPutOut = false;
     this.capacity = 100;
     this.waterLvL = 100;
