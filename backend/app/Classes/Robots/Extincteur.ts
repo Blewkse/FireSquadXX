@@ -2,8 +2,8 @@ import Robot from "./Robot";
 import { robotState, robotType } from "./enumRobot";
 
 class Extincteur extends Robot {
-  constructor() {
-    super();
+  constructor(id: number) {
+    super(id);
     this.speed = 50;
     this.canPutOut = true;
     this.capacity = 250;

@@ -7,6 +7,7 @@ type Position = {
 };
 
 abstract class Robot {
+  id: number;
   type: robotType;
   speed: number;
   canPutOut: boolean;
@@ -14,6 +15,10 @@ abstract class Robot {
   position: Position;
   waterLvL: number;
   state: robotState;
+
+  constructor(id: number) {
+    this.id = id;
+  }
 
   async travelTo(x: number, y: number, fire?: Fire, refuel?: boolean) {
     this.state = refuel
