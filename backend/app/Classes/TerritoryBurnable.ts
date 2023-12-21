@@ -1,3 +1,6 @@
+import Fire from "./Fire";
+import FireFactory from "./FireFactory";
+
 abstract class TerritoryBurnable {
   public propagationTime: number;
   public type: "forest" | "mountain" | "plain";
@@ -32,3 +35,5 @@ abstract class TerritoryBurnable {
     }
   };
 }
+
+export default TerritoryBurnable;

@@ -1,3 +1,5 @@
+import TerritoryBurnable from "./TerritoryBurnable";
+
 class Plain extends TerritoryBurnable {
   public propagationTime: 60;
   public type: "plain" = "plain";
@@ -5,3 +7,5 @@ class Plain extends TerritoryBurnable {
   public canBurn = true;
   public color = "#DAF8C2";
 }
+
+export default Plain;

@@ -1,3 +1,5 @@
+import Fire from "./Fire";
+
 class FireFactory {
   static create(position: { x: number; y: number }) {
     const fire = new Fire();
@@ -11,3 +13,5 @@ class FireFactory {
     positionsList.push(newPosition);
   }
 }
+
+export default FireFactory;
