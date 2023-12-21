@@ -1,6 +1,4 @@
-import { TerritoryBurnable } from "./TerritoryBurnable";
-
-export class Plain extends TerritoryBurnable {
+class Plain extends TerritoryBurnable {
   public propagationTime: 60;
   public type: "plain" = "plain";
   public isBurning = false;

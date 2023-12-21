@@ -1,6 +1,4 @@
-import { TerritoryUnburnable } from "./TerritoryUnburnable";
-
-export abstract class TerritoryBurnable {
+abstract class TerritoryBurnable {
   public propagationTime: number;
   public type: "forest" | "mountain" | "plain";
   public isBurning: boolean;
