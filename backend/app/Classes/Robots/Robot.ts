@@ -33,7 +33,7 @@ abstract class Robot {
 
     this.state = refuel ? robotState.refueling : robotState.inOperation;
     if (fire) {
-      fire.robotsList.push(this);
+      fire.addRobot(this);
     }
   }
 

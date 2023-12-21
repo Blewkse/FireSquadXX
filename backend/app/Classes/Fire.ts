@@ -1,5 +1,5 @@
 import Robot from "./Robots/Robot";
-import { robotType } from "./Robots/enumRobot";
+import { robotState, robotType } from "./Robots/enumRobot";
 
 class Fire {
   public positionsList: { x: number; y: number }[];
@@ -7,6 +7,10 @@ class Fire {
   private pdv: number;
   private nbExtincteur: number = 0;
   private intervalAttacking: NodeJS.Timeout | null;
+
+  constructor() {
+    this.pdv = Math.round(Math.random() * 1000);
+  }
 
   addRobot(robot: Robot) {
     if (robot.type === robotType.extincteur) {
@@ -32,6 +36,9 @@ class Fire {
   putOutFire() {
     this.intervalAttacking = setInterval(() => {
       this.pdv - 50 * this.nbExtincteur;
+      if (this.pdv <= 0) {
+        //    notifier mediateur
+      }
     }, 1000);
   }
 
