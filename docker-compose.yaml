@@ -6,8 +6,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     volumes:
-      - ./:/app
-      - /app/node_modules
+      - ./backend:/app
+      - /backend/node_modules
     command: npm run dev
     ports:
       - 8000:8000
