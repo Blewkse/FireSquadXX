@@ -1,10 +1,10 @@
 import Robot from "./Robot";
-import { robotType } from "./enumRobot";
+import { robotState, robotType } from "./enumRobot";
 
 class Extincteur extends Robot {
   constructor() {
     super();
-    this.speed = 70;
+    this.speed = 50;
     this.canPutOut = true;
     this.capacity = 250;
     this.waterLvL = 250;

@@ -3,6 +3,7 @@ enum robotState {
   inOperation = "In operation",
   travelingToOperation = "Traveling to operation",
   travelingToRefuel = "Traveling to refuel",
+  refueling = "Ravitaillement",
 }
 
 enum robotType {
