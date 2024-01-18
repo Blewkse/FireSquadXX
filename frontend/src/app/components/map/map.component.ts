@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { interval, Observable } from "rxjs";
 
 @Component({
   selector: 'app-map',
@@ -15,6 +16,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.drawBackground();
+    this.movePointEvery10Seconds();
   }
 
   drawBackground() {
@@ -45,5 +47,30 @@ export class MapComponent implements OnInit {
       console.error("Canvas element or context not found.");
     }
   }
+
+
+  movePoint() {
+    const canvas = document.getElementById('mapCanvas') as HTMLCanvasElement;
+    const context = canvas?.getContext('2d');
+
+    if (canvas && context) {
+      this.x += this.dx;
+      this.y += this.dy;
+
+      context.beginPath();
+      context.arc(this.x, this.y, 5, 0, 2 * Math.PI);
+      context.fillStyle = 'red';
+      context.fill();
+      context.closePath();
+    }
+  }
+
+  movePointEvery10Seconds() {
+    const moveInterval: Observable<number> = interval(100);
+    moveInterval.subscribe(() => {
+      this.movePoint();
+    });
+  }
+
 
 }
