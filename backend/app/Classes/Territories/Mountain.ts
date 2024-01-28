@@ -1,4 +1,4 @@
-import TerritoryBurnable from "./TerritoryBurnable";
+import TerritoryBurnable from "../TerritoryBurnable";
 
 class Mountain extends TerritoryBurnable {
   public propagationTime: 120;

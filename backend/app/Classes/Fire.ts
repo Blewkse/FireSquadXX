@@ -35,16 +35,20 @@ class Fire {
   }
 
   putOutFire() {
-    this.intervalAttacking = setInterval(() => {
-      this.pdv - 50 * this.nbExtincteur;
-      if (this.pdv <= 0) {
-        //    notifier mediateur
-      }
-    }, 1000);
+    if (this.intervalAttacking == null) {
+      this.intervalAttacking = setInterval(() => {
+        this.pdv - 50 * this.nbExtincteur;
+        if (this.pdv <= 0) {
+          //    notifier mediateur
+        }
+      }, 1000);
+    }
   }
 
   putInFire() {
-    this.intervalAttacking = null;
+    if (this.intervalAttacking != null) {
+      this.intervalAttacking = null;
+    }
   }
 }
 

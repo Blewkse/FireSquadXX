@@ -3,3 +3,5 @@ abstract class TerritoryUnburnable {
   public color: string;
   public position: { x: number; y: number };
 }
+
+export default TerritoryUnburnable;

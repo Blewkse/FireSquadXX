@@ -1,5 +1,6 @@
 import Fire from "./Fire";
 import FireFactory from "./FireFactory";
+import TerritoryUnburnable from "./TerritoryUnburnable";
 
 abstract class TerritoryBurnable {
   public propagationTime: number;

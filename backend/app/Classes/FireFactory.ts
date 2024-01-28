@@ -4,7 +4,6 @@ class FireFactory {
   static create(position: { x: number; y: number }) {
     const fire = new Fire();
     fire.positionsList = [position];
-    fire.robotsList = [];
     return fire;
   }
 
