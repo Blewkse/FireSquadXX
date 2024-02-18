@@ -3,6 +3,7 @@ import Citerne from "./Citerne";
 import Rapido from "./Rapido";
 import Extincteur from "./Extincteur";
 import { robotState } from "./enumRobot";
+import { Observer, Observable } from "../Interfaces/Observer";
 
 class RobotFactory implements Observable {
   listRobot: Array<Robot> = [];
@@ -45,6 +46,7 @@ class RobotFactory implements Observable {
     this.nbExtincteur++;
     this.listRobot.push(new Extincteur(this.nbExtincteur + 1));
     this.nbExtincteur++;
+    this.notify();
   }
 
   public getRobotList() {
@@ -107,6 +109,12 @@ class RobotFactory implements Observable {
       elem == observer;
     });
     this.listObserver.splice(index, 1);
+  }
+
+  notify() {
+    this.listObserver.forEach((observer) => {
+      observer.update(this);
+    });
   }
 }
 

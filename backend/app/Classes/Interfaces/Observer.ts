@@ -1,10 +1,10 @@
-interface Observer {
+export interface Observer {
   update(observable: Observable);
 }
 
-interface Observable {
+export interface Observable {
   listObserver: Observer[];
   addObserver(observer: Observer);
   removeObserver(observer: Observer);
-  notify(observable: Observable);
+  notify();
 }
