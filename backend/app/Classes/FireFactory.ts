@@ -1,7 +1,7 @@
 import Fire from './Fire.js'
 
 class FireFactory {
-  static create(position: { x: number; y: number }) {
+  public create(position: { x: number; y: number }) {
     const fire = new Fire()
     fire.positionsList = [position]
     return fire
