@@ -1,17 +1,16 @@
-import Pyromane from "./Fire";
+import Pyromane from './Pyromane.js'
 
 class PyromaneFactory {
   static create(position: { x: number; y: number }) {
-    const pyromane = new Pyromane();
-    pyromane.positionsList = [position];
-   
-    return pyromane;
+    const pyromane = new Pyromane()
+    pyromane.position = position
+
+    return pyromane
   }
 
   static update(pyromane: Pyromane, newPosition: { x: number; y: number }) {
-    const { positionsList } = pyromane;
-    positionsList.push(newPosition);
+    pyromane.position = newPosition
   }
 }
 
-export default PyromaneFactory;
+export default PyromaneFactory

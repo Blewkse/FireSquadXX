@@ -18,8 +18,16 @@
 |
 */
 
-import router from '@adonisjs/core/services/router'
+import { router } from '@adonisjs/core/services/router'
+import GameController from '#app/Controllers/Http/GameController'
 
 router.get('/', async () => {
   return { hello: 'world' }
+})
+
+router.get('/game/', async ({ request }) => {
+  const { x, y } = request.qs()
+  const gameController = new GameController()
+  gameController.main({ x, y })
+  return gameController.game
 })
