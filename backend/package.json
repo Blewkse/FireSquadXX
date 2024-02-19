@@ -40,6 +40,9 @@
     "extends": [
       "@adonisjs/eslint-config/app"
     ],
+    "parserOptions": {
+      "project": "./backend/tsconfig.json"
+    },
     "rules": {
       "@typescript-eslint/explicit-member-accessibility": "off",
       "unicorn/filename-case": "off",

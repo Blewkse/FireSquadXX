@@ -5,11 +5,11 @@
  * file.
  */
 
-import type { BodyParserConfig } from '@adonisjs/core/bodyparser'
 import { defineConfig } from '@adonisjs/core/bodyparser'
 
-const bodyParserConfig = defineConfig({
-  /*
+const bodyParserConfig = defineConfig(
+  defineConfig({
+    /*
   |--------------------------------------------------------------------------
   | White listed methods
   |--------------------------------------------------------------------------
@@ -18,9 +18,9 @@ const bodyParserConfig = defineConfig({
   | to avoid body parsing for `GET` requests.
   |
   */
-  whitelistedMethods: ['POST', 'PUT', 'PATCH', 'DELETE'],
+    allowedMethods: ['POST', 'PUT', 'PATCH', 'DELETE'],
 
-  /*
+    /*
   |--------------------------------------------------------------------------
   | JSON parser settings
   |--------------------------------------------------------------------------
@@ -29,19 +29,19 @@ const bodyParserConfig = defineConfig({
   | types which gets processed by the JSON parser.
   |
   */
-  json: {
-    encoding: 'utf-8',
-    limit: '1mb',
-    strict: true,
-    types: [
-      'application/json',
-      'application/json-patch+json',
-      'application/vnd.api+json',
-      'application/csp-report',
-    ],
-  },
+    json: {
+      encoding: 'utf-8',
+      limit: '1mb',
+      strict: true,
+      types: [
+        'application/json',
+        'application/json-patch+json',
+        'application/vnd.api+json',
+        'application/csp-report',
+      ],
+    },
 
-  /*
+    /*
   |--------------------------------------------------------------------------
   | Form parser settings
   |--------------------------------------------------------------------------
@@ -50,12 +50,12 @@ const bodyParserConfig = defineConfig({
   | defines the request content types which gets processed by the form parser.
   |
   */
-  form: {
-    encoding: 'utf-8',
-    limit: '1mb',
-    queryString: {},
+    form: {
+      encoding: 'utf-8',
+      limit: '1mb',
+      queryString: {},
 
-    /*
+      /*
     |--------------------------------------------------------------------------
     | Convert empty strings to null
     |--------------------------------------------------------------------------
@@ -65,12 +65,12 @@ const bodyParserConfig = defineConfig({
     | field values to "null"
     |
     */
-    convertEmptyStringsToNull: true,
+      convertEmptyStringsToNull: true,
 
-    types: ['application/x-www-form-urlencoded'],
-  },
+      types: ['application/x-www-form-urlencoded'],
+    },
 
-  /*
+    /*
   |--------------------------------------------------------------------------
   | Raw body parser settings
   |--------------------------------------------------------------------------
@@ -80,14 +80,13 @@ const bodyParserConfig = defineConfig({
   | supported by the body parser.
   |
   */
-  raw: {
-    encoding: 'utf-8',
-    limit: '1mb',
-    queryString: {},
-    types: ['text/*'],
-  },
+    raw: {
+      encoding: 'utf-8',
+      limit: '1mb',
+      types: ['text/*'],
+    },
 
-  /*
+    /*
   |--------------------------------------------------------------------------
   | Multipart parser settings
   |--------------------------------------------------------------------------
@@ -96,8 +95,8 @@ const bodyParserConfig = defineConfig({
   | request content types which gets processed by the form parser.
   |
   */
-  multipart: {
-    /*
+    multipart: {
+      /*
     |--------------------------------------------------------------------------
     | Auto process
     |--------------------------------------------------------------------------
@@ -110,9 +109,9 @@ const bodyParserConfig = defineConfig({
     | file sizes.
     |
     */
-    autoProcess: true,
+      autoProcess: true,
 
-    /*
+      /*
     |--------------------------------------------------------------------------
     | Files to be processed manually
     |--------------------------------------------------------------------------
@@ -132,9 +131,9 @@ const bodyParserConfig = defineConfig({
     | projects/:id/file
     | ```
     */
-    processManually: [],
+      processManually: [],
 
-    /*
+      /*
     |--------------------------------------------------------------------------
     | Temporary file name
     |--------------------------------------------------------------------------
@@ -144,10 +143,10 @@ const bodyParserConfig = defineConfig({
     | However, you can also define your own custom method.
     |
     */
-    // tmpFileName () {
-    // },
+      // tmpFileName () {
+      // },
 
-    /*
+      /*
     |--------------------------------------------------------------------------
     | Encoding
     |--------------------------------------------------------------------------
@@ -155,9 +154,9 @@ const bodyParserConfig = defineConfig({
     | Request body encoding
     |
     */
-    encoding: 'utf-8',
+      encoding: 'utf-8',
 
-    /*
+      /*
     |--------------------------------------------------------------------------
     | Convert empty strings to null
     |--------------------------------------------------------------------------
@@ -167,9 +166,9 @@ const bodyParserConfig = defineConfig({
     | field values to "null"
     |
     */
-    convertEmptyStringsToNull: true,
+      convertEmptyStringsToNull: true,
 
-    /*
+      /*
     |--------------------------------------------------------------------------
     | Max Fields
     |--------------------------------------------------------------------------
@@ -178,9 +177,9 @@ const bodyParserConfig = defineConfig({
     | text inputs and files both.
     |
     */
-    maxFields: 1000,
+      maxFields: 1000,
 
-    /*
+      /*
     |--------------------------------------------------------------------------
     | Request body limit
     |--------------------------------------------------------------------------
@@ -189,9 +188,9 @@ const bodyParserConfig = defineConfig({
     | and fields data.
     |
     */
-    limit: '20mb',
+      limit: '20mb',
 
-    /*
+      /*
     |--------------------------------------------------------------------------
     | Types
     |--------------------------------------------------------------------------
@@ -199,8 +198,9 @@ const bodyParserConfig = defineConfig({
     | The types that will be considered and parsed as multipart body.
     |
     */
-    types: ['multipart/form-data'],
-  },
-})
+      types: ['multipart/form-data'],
+    },
+  })
+)
 
 export default bodyParserConfig

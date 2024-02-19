@@ -1,4 +1,3 @@
-// import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import sharp from 'sharp'
 import fs from 'node:fs'
 import path from 'node:path'

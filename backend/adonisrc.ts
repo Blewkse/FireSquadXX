@@ -19,7 +19,16 @@ export default defineConfig({
   | List of modules to import before starting the application.
   |
   */
-  preloads: [() => import('./start/routes.js'), () => import('./start/kernel.js')],
+  preloads: [
+    {
+      file: () => import('./start/routes.js'),
+      environment: ['web', 'console', 'test', 'repl'],
+    },
+    {
+      file: () => import('./start/kernel.js'),
+      environment: ['web', 'console', 'test', 'repl'],
+    },
+  ],
   /*
   |--------------------------------------------------------------------------
   | Service providers
@@ -30,12 +39,50 @@ export default defineConfig({
   |
   */
   providers: [
-    () => import('./providers/AppProvider.js'),
-    () => import('@adonisjs/core/providers/app_provider'),
-    () => import('@adonisjs/core/providers/hash_provider'),
-    { file: () => import('@adonisjs/core/providers/repl_provider'), environment: ['repl', 'test'] },
-    () => import('@adonisjs/transmit/transmit_provider'),
+    {
+      file: () => import('./providers/AppProvider.js'),
+      environment: ['web', 'console', 'test', 'repl'],
+    },
+    {
+      file: () => import('@adonisjs/core/providers/app_provider'),
+      environment: ['web', 'console', 'test', 'repl'],
+    },
+    {
+      file: () => import('@adonisjs/core/providers/repl_provider'),
+      environment: ['repl', 'test'],
+    },
+    {
+      file: () => import('@adonisjs/transmit/transmit_provider'),
+      environment: ['web', 'console', 'test', 'repl'],
+    },
   ],
+  directories: {
+    config: 'config',
+    commands: 'commands',
+    contracts: 'contracts',
+    public: 'public',
+    providers: 'providers',
+    languageFiles: 'resources/lang',
+    migrations: 'database/migrations',
+    seeders: 'database/seeders',
+    factories: 'database/factories',
+    views: 'resources/views',
+    start: 'start',
+    tmp: 'tmp',
+    tests: 'tests',
+    httpControllers: 'app/controllers',
+    models: 'app/models',
+    services: 'app/services',
+    exceptions: 'app/exceptions',
+    mailers: 'app/mailers',
+    mails: 'app/mails',
+    middleware: 'app/middleware',
+    policies: 'app/policies',
+    validators: 'app/validators',
+    events: 'app/events',
+    listeners: 'app/listeners',
+    stubs: 'stubs',
+  },
   /*
   |--------------------------------------------------------------------------
   | Tests
@@ -53,5 +100,7 @@ export default defineConfig({
         timeout: 60000,
       },
     ],
+    timeout: 2000,
+    forceExit: true,
   },
 })

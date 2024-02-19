@@ -1,7 +1,8 @@
 import { defineConfig } from '@adonisjs/cors'
 
-const corsConfig = defineConfig({
-  /*
+const corsConfig = defineConfig(
+  defineConfig({
+    /*
   |--------------------------------------------------------------------------
   | Enabled
   |--------------------------------------------------------------------------
@@ -13,12 +14,12 @@ const corsConfig = defineConfig({
   | you can define a function to enable/disable it on per request basis as well.
   |
   */
-  enabled: false,
+    enabled: false,
 
-  // You can also use a function that return true or false.
-  // enabled: (request) => request.url().startsWith('/api')
+    // You can also use a function that return true or false.
+    // enabled: (request) => request.url().startsWith('/api')
 
-  /*
+    /*
   |--------------------------------------------------------------------------
   | Origin
   |--------------------------------------------------------------------------
@@ -37,9 +38,9 @@ const corsConfig = defineConfig({
   |                     one of the above values.
   |
   */
-  origin: true,
+    origin: true,
 
-  /*
+    /*
   |--------------------------------------------------------------------------
   | Methods
   |--------------------------------------------------------------------------
@@ -49,9 +50,9 @@ const corsConfig = defineConfig({
   |
   | Following is the list of default methods. Feel free to add more.
   */
-  methods: ['GET', 'HEAD', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'HEAD', 'POST', 'PUT', 'DELETE'],
 
-  /*
+    /*
   |--------------------------------------------------------------------------
   | Headers
   |--------------------------------------------------------------------------
@@ -68,9 +69,9 @@ const corsConfig = defineConfig({
   | Function          - Receives the current header and should return one of the above values.
   |
   */
-  headers: true,
+    headers: true,
 
-  /*
+    /*
   |--------------------------------------------------------------------------
   | Expose Headers
   |--------------------------------------------------------------------------
@@ -90,16 +91,16 @@ const corsConfig = defineConfig({
   | https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers
   |
   */
-  exposeHeaders: [
-    'cache-control',
-    'content-language',
-    'content-type',
-    'expires',
-    'last-modified',
-    'pragma',
-  ],
+    exposeHeaders: [
+      'cache-control',
+      'content-language',
+      'content-type',
+      'expires',
+      'last-modified',
+      'pragma',
+    ],
 
-  /*
+    /*
   |--------------------------------------------------------------------------
   | Credentials
   |--------------------------------------------------------------------------
@@ -110,9 +111,9 @@ const corsConfig = defineConfig({
   | https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials
   |
   */
-  credentials: true,
+    credentials: true,
 
-  /*
+    /*
   |--------------------------------------------------------------------------
   | MaxAge
   |--------------------------------------------------------------------------
@@ -121,7 +122,8 @@ const corsConfig = defineConfig({
   | https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Max-Age
   |
   */
-  maxAge: 90,
-})
+    maxAge: 90,
+  })
+)
 
 export default corsConfig

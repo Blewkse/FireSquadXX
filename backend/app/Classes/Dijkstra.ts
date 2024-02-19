@@ -1,4 +1,4 @@
-import { Position } from "./Robots/Robot";
+import { Position } from "./Robots/Robot.js";
 
 export class Dijkstra {
   // Using Dijkstra's algorithm

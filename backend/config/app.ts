@@ -7,8 +7,6 @@
 
 import proxyAddr from 'proxy-addr'
 import env from '#start/env'
-import type { ProfilerConfig } from '@ioc:Adonis/Core/Profiler'
-import { ServerConfig } from '@adonisjs/core/services/server'
 import { LoggerConfig } from '@adonisjs/core/types/logger'
 import { ValidatorConfig } from '@adonisjs/validator/types'
 import { defineConfig } from '@adonisjs/core/http'
@@ -127,7 +125,6 @@ export const http = defineConfig({
   | client to set the header explicitly.
   |
   */
-  forceContentNegotiationTo: 'application/json',
 })
 
 /*
@@ -171,56 +168,6 @@ export const logger: LoggerConfig = {
   |
   */
   level: env.get('LOG_LEVEL', 'info'),
-
-  /*
-  |--------------------------------------------------------------------------
-  | Pretty print
-  |--------------------------------------------------------------------------
-  |
-  | It is highly advised NOT to use `prettyPrint` in production, since it
-  | can have huge impact on performance.
-  |
-  */
-  prettyPrint: env.get('NODE_ENV') === 'development',
-}
-
-/*
-|--------------------------------------------------------------------------
-| Profiler
-|--------------------------------------------------------------------------
-*/
-export const profiler: ProfilerConfig = {
-  /*
-  |--------------------------------------------------------------------------
-  | Toggle profiler
-  |--------------------------------------------------------------------------
-  |
-  | Enable or disable profiler
-  |
-  */
-  enabled: true,
-
-  /*
-  |--------------------------------------------------------------------------
-  | Blacklist actions/row labels
-  |--------------------------------------------------------------------------
-  |
-  | Define an array of actions or row labels that you want to disable from
-  | getting profiled.
-  |
-  */
-  blacklist: [],
-
-  /*
-  |--------------------------------------------------------------------------
-  | Whitelist actions/row labels
-  |--------------------------------------------------------------------------
-  |
-  | Define an array of actions or row labels that you want to whitelist for
-  | the profiler. When whitelist is defined, then `blacklist` is ignored.
-  |
-  */
-  whitelist: [],
 }
 
 /*

@@ -1,6 +1,6 @@
-import { robotState, robotType } from "./enumRobot";
-import Fire from "../Fire";
-import { Dijkstra } from "../Dijkstra";
+import { robotState, robotType } from "./enumRobot.js";
+import Fire from "../Fire.js";
+import { Dijkstra } from "../Dijkstra.js";
 
 export type Position = {
   x: number;
