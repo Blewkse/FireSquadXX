@@ -1,12 +1,12 @@
-import Fire from "./Fire";
-import { Observable, Observer } from "./Interfaces/Observer";
+import Fire from './Fire.js'
+import { Observable, Observer } from './Interfaces/Observer.js'
 
 class FireFactory implements Observable {
-  listObserver: Observer[];
+  listObserver: Observer[]
 
-  fireList: Fire[];
+  fireList: Fire[]
 
-  timer: NodeJS.Timer | null;
+  timer: NodeJS.Timer | null
 
   comstructor() {}
 
@@ -15,9 +15,9 @@ class FireFactory implements Observable {
   public stopFactory(): void {}
 
   static create(position: { x: number; y: number }): Fire {
-    const fire = new Fire();
-    fire.positionsList = [position];
-    return fire;
+    const fire = new Fire()
+    fire.positionsList = [position]
+    return fire
   }
 
   static update(fire: Fire, newPosition: { x: number; y: number }) {
@@ -26,24 +26,24 @@ class FireFactory implements Observable {
   }
 
   addObserver(observer: Observer): void {
-    this.listObserver.push(observer);
+    this.listObserver.push(observer)
   }
 
   removeObserver(observer: Observer): void {
     const index = this.listObserver.findIndex((elem) => {
-      elem == observer;
-    });
-    this.listObserver.splice(index, 1);
+      elem === observer
+    })
+    this.listObserver.splice(index, 1)
   }
 
   notify(): void {
     this.listObserver.forEach((observer) => {
-      observer.update(this);
-    });
+      observer.update(this)
+    })
   }
 
   getFireList(): Fire[] {
-    return this.fireList;
+    return this.fireList
   }
 }
 

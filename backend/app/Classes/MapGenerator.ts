@@ -152,7 +152,7 @@ export default class MapGenerator {
     for (let i = 0; i < width; i++) {
       let row: { x: number; y: number }[] = []
       for (let j = 0; j < height; j++) {
-        const tl = dot_prod_grid()
+        // const tl = dotProdGrid()
       }
       map.push(row)
     }

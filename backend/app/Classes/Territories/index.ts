@@ -1,9 +1,9 @@
-import Casern from "./Casern";
-import Road from "./Road";
-import Forest from "./Forest";
-import Mountain from "./Mountain";
-import Plain from "./Plain";
-import Water from "./Water";
-import Village from "./Village";
+import Casern from './Casern.js'
+import Road from './Road.js'
+import Forest from './Forest.js'
+import Mountain from './Mountain.js'
+import Plain from './Plain.js'
+import Water from './Water.js'
+import Village from './Village.js'
 
-export { Casern, Forest, Road, Mountain, Plain, Water, Village };
+export { Casern, Forest, Road, Mountain, Plain, Water, Village }

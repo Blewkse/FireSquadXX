@@ -69,7 +69,7 @@ class RobotFactory implements Observable {
   public removeCiterne() {
     for (let i = 0; i < this.listRobot.length; i++) {
       if (this.listRobot[i] instanceof Citerne) {
-        if (this.listRobot[i].state != RobotState.inOperation) {
+        if (this.listRobot[i].state !== RobotState.inOperation) {
           this.listRobot.splice(i, 1)
           break
         }
@@ -80,7 +80,7 @@ class RobotFactory implements Observable {
   public removeRapido() {
     for (let i = 0; i < this.listRobot.length; i++) {
       if (this.listRobot[i] instanceof Rapido) {
-        if (this.listRobot[i].state != RobotState.inOperation) {
+        if (this.listRobot[i].state !== RobotState.inOperation) {
           this.listRobot.splice(i, 1)
           break
         }
@@ -91,7 +91,7 @@ class RobotFactory implements Observable {
   public removeExtincteur() {
     for (let i = 0; i < this.listRobot.length; i++) {
       if (this.listRobot[i] instanceof Extincteur) {
-        if (this.listRobot[i].state != RobotState.inOperation) {
+        if (this.listRobot[i].state !== RobotState.inOperation) {
           this.listRobot.splice(i, 1)
           break
         }
@@ -106,7 +106,7 @@ class RobotFactory implements Observable {
 
   removeObserver(observer: Observer) {
     const index = this.listObserver.findIndex((elem) => {
-      elem == observer
+      elem === observer
     })
     this.listObserver.splice(index, 1)
   }

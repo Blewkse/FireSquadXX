@@ -15,8 +15,8 @@ class Pyromane {
         Math.round(Math.random() * 10),
         Math.round(Math.random() * 10)
       )
-      const fire = this.fireFactory.create(firePLace)
-      this.fires.push(fire)
+      // const fire = this.fireFactory.create(firePLace)
+      // this.fires.push(fire)
     }
   }
 

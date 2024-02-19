@@ -1,7 +1,9 @@
-import Route from "@ioc:Adonis/Core/Route";
+import router from '@adonisjs/core/services/router'
 
-Route.group(() => {
-  Route.get("/GenerateMap", "MapGeneratorsController.generateMap");
-}).prefix("api/maps");
+router
+  .group(() => {
+    router.get('/GenerateMap', 'MapGeneratorsController.generateMap')
+  })
+  .prefix('api/maps')
 
-module.exports = Route;
+export default router

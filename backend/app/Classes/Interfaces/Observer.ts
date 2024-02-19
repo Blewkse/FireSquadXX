@@ -1,10 +1,10 @@
 export interface Observer {
-  update(observable: Observable);
+  update(observable: Observable): void
 }
 
 export interface Observable {
-  listObserver: Observer[];
-  addObserver(observer: Observer);
-  removeObserver(observer: Observer);
-  notify();
+  listObserver: Observer[]
+  addObserver(observer: Observer): void
+  removeObserver(observer: Observer): void
+  notify(): void
 }
