@@ -1,5 +1,5 @@
 import Robot from './Robots/Robot.js'
-import { robotState, robotType } from './Robots/enumRobot.js'
+import { RobotState, RobotType } from './Robots/enumRobot.js'
 
 class Fire {
   public id: string
@@ -14,7 +14,7 @@ class Fire {
   }
 
   addRobot(robot: Robot) {
-    if (robot.type === robotType.extincteur) {
+    if (robot.type === RobotType.extincteur) {
       this.nbExtincteur++
       if (this.nbExtincteur > 0) {
         this.putOutFire()
@@ -28,7 +28,7 @@ class Fire {
       elem.id === robot.id
     })
     this.robotsList.slice(index, 1)
-    if (robot.type === robotType.extincteur) this.nbExtincteur--
+    if (robot.type === RobotType.extincteur) this.nbExtincteur--
     if (this.nbExtincteur == 0) {
       this.putInFire()
     }

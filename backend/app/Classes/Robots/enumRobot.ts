@@ -1,4 +1,4 @@
-enum robotState {
+enum RobotState {
   free = 'Free',
   inOperation = 'In operation',
   travelingToOperation = 'Traveling to operation',
@@ -6,10 +6,10 @@ enum robotState {
   refueling = 'Ravitaillement',
 }
 
-enum robotType {
+enum RobotType {
   citerne = 'Citerne',
   extincteur = 'Extincteur',
   rapido = 'Rapido',
 }
 
-export { robotState, robotType }
+export { RobotState, RobotType }
