@@ -1,8 +1,6 @@
 import { defineConfig } from '@adonisjs/cors'
 
-import type { CorsConfig } from '@ioc:Adonis/Core/Cors'
-
-const corsConfig: CorsConfig = {
+const corsConfig = defineConfig({
   /*
   |--------------------------------------------------------------------------
   | Enabled
@@ -124,6 +122,6 @@ const corsConfig: CorsConfig = {
   |
   */
   maxAge: 90,
-}
+})
 
 export default corsConfig

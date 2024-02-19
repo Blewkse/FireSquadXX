@@ -24,7 +24,6 @@
     "middleware": "app/middleware",
     "policies": "app/policies",
     "validators": "app/validators",
-    "events": "app/events",
     "listeners": "app/listeners",
     "stubs": "stubs"
   },
@@ -33,12 +32,8 @@
     "suites": [
       {
         "name": "functional",
-        "files": [
-          "tests/functional/**/*.spec(.ts|.js)"
-        ],
-        "directories": [
-          "tests/functional"
-        ],
+        "files": ["tests/functional/**/*.spec(.ts|.js)"],
+        "directories": ["tests/functional"],
         "timeout": 60000
       }
     ],
@@ -48,60 +43,30 @@
   "providers": [
     {
       "file": "()=>import('./providers/AppProvider.js')",
-      "environment": [
-        "web",
-        "console",
-        "test",
-        "repl"
-      ]
+      "environment": ["web", "console", "test", "repl"]
     },
     {
       "file": "()=>import('@adonisjs/core/providers/app_provider')",
-      "environment": [
-        "web",
-        "console",
-        "test",
-        "repl"
-      ]
+      "environment": ["web", "console", "test", "repl"]
     },
     {
       "file": "()=>import('@adonisjs/core/providers/repl_provider')",
-      "environment": [
-        "repl",
-        "test"
-      ]
+      "environment": ["repl", "test"]
     },
     {
       "file": "()=>import('@adonisjs/transmit/transmit_provider')",
-      "environment": [
-        "web",
-        "console",
-        "test",
-        "repl"
-      ]
+      "environment": ["web", "console", "test", "repl"]
     }
   ],
   "preloads": [
     {
       "file": "()=>import('./start/routes.js')",
-      "environment": [
-        "web",
-        "console",
-        "test",
-        "repl"
-      ]
+      "environment": ["web", "console", "test", "repl"]
     },
     {
       "file": "()=>import('./start/kernel.js')",
-      "environment": [
-        "web",
-        "console",
-        "test",
-        "repl"
-      ]
+      "environment": ["web", "console", "test", "repl"]
     }
   ],
-  "commands": [
-    "()=>import('@adonisjs/core/commands')"
-  ]
+  "commands": ["()=>import('@adonisjs/core/commands')"]
 }
