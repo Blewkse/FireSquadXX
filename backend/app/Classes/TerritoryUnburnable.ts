@@ -1,7 +1,7 @@
 abstract class TerritoryUnburnable {
-  public type: "city" | "road" | "casern" | "water";
-  public color: string;
-  public position: { x: number; y: number };
+  public type: 'city' | 'road' | 'casern' | 'water'
+  public color: string
+  public position: { x: number; y: number }
 }
 
-export default TerritoryUnburnable;
+export default TerritoryUnburnable

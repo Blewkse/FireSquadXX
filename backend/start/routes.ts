@@ -18,8 +18,8 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
+import router from '@adonisjs/core/services/router'
 
-Route.get('/', async () => {
+router.get('/', async () => {
   return { hello: 'world' }
 })

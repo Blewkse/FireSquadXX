@@ -1,6 +1,6 @@
-import TerritoryUnburnable from "../TerritoryUnburnable";
+import TerritoryUnburnable from '../TerritoryUnburnable.js'
 
 class Casern extends TerritoryUnburnable {
-  public type: "casern" = "casern";
-  public color = "#DA3832";
+  public type: 'casern' = 'casern'
+  public color = '#DA3832'
 }

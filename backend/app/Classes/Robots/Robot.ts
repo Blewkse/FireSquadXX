@@ -1,45 +1,49 @@
-import { robotState, robotType } from "./enumRobot";
-import Fire from "../Fire";
+import { robotState, robotType } from "./enumRobot.js";
+import Fire from "../Fire.js";
+import { Dijkstra } from "../Dijkstra.js";
 
-type Position = {
+export type Position = {
   x: number;
   y: number;
 };
 
 abstract class Robot {
-  id: number;
-  type: robotType;
-  speed: number;
-  canPutOut: boolean;
-  capacity: number;
-  position: Position;
-  waterLvL: number;
-  state: robotState;
+  id: number
+  type: robotType
+  speed: number
+  canPutOut: boolean
+  capacity: number
+  position: Position
+  waterLvL: number
+  state: robotState
 
   constructor(id: number) {
-    this.id = id;
+    this.id = id
   }
 
-  async travelTo(x: number, y: number, fire?: Fire, refuel?: boolean) {
-    this.state = refuel
-      ? robotState.travelingToRefuel
-      : robotState.travelingToOperation;
-    const path = new Array<Position>(); //algo renaud pathfinding
-    for (let i = 0; i < path.length; i++) {
-      this.position.x = path[i].x;
-      this.position.y = path[i].y;
-      await this.wait(1000 * (1 / this.speed));
-    }
+  findShortestPathToFire(matrix: number[][], fire: Fire) {
+    const closestFire = this.findClosestFire(fire);
 
-    this.state = refuel ? robotState.refueling : robotState.inOperation;
-    if (fire) {
-      fire.addRobot(this);
-    }
+    return Dijkstra.findShortestPath(matrix, this.position, closestFire);
   }
 
-  async wait(delay: number) {
-    return await setTimeout(() => {}, delay);
+  findShortestPathToRefuel(matrix: number[][], refuel: Position) {
+    return Dijkstra.findShortestPath(matrix, this.position, refuel);
+  }
+
+  findClosestFire(fire: Fire) {
+    return fire.positionsList.reduce((prev, curr) => {
+      const prevDist = Math.sqrt(
+        Math.pow(prev.x - this.position.x, 2) +
+          Math.pow(prev.y - this.position.y, 2)
+      );
+      const currDist = Math.sqrt(
+        Math.pow(curr.x - this.position.x, 2) +
+          Math.pow(curr.y - this.position.y, 2)
+      );
+      return prevDist < currDist ? prev : curr;
+    }, fire.positionsList[0]);
   }
 }
 
-export default Robot;
+export default Robot
