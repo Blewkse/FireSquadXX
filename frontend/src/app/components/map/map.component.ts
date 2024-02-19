@@ -1,19 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarComponent } from "../navbar/navbar/navbar.component";
-import { RouterOutlet } from "@angular/router";
+import { NavbarComponent } from '../navbar/navbar/navbar.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
-  imports: [
-    NavbarComponent,
-    RouterOutlet
-  ],
-  standalone: true
+  imports: [NavbarComponent, RouterOutlet],
+  standalone: true,
 })
 export class MapComponent implements OnInit {
-  private points: { x: number; y: number; radius: number; targetRadius: number; growthSpeed: number }[] = [];
+  private points: {
+    x: number;
+    y: number;
+    radius: number;
+    targetRadius: number;
+    growthSpeed: number;
+  }[] = [];
 
   ngOnInit(): void {
     this.initializeMap();
@@ -71,7 +74,8 @@ export class MapComponent implements OnInit {
         const minRadius = 5; // Taille minimale du point
         const maxRadius = 80; // Taille maximale du point
         const radius = Math.random() * (minRadius - 1) + 1; // Taille aléatoire entre 1 et minRadius
-        const targetRadius = Math.random() * (maxRadius - minRadius) + minRadius; // Taille aléatoire entre minRadius et maxRadius
+        const targetRadius =
+          Math.random() * (maxRadius - minRadius) + minRadius; // Taille aléatoire entre minRadius et maxRadius
         const growthSpeed = 1; // Vitesse de croissance du point
 
         this.points.push({ x, y, radius, targetRadius, growthSpeed });
