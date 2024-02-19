@@ -22,6 +22,7 @@ import router from '@adonisjs/core/services/router'
 router.use([
   () => import('@adonisjs/core/bodyparser_middleware'),
   () => import('#middleware/add_uid_middleware'),
+  () => import('@adonisjs/cors/cors_middleware'),
 ])
 
 /**

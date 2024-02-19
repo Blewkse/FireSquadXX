@@ -128,8 +128,8 @@ export default class MapGenerator {
   //   }
   // }
 
-  public generateMap(width: number, height: number) {
-    let map: { x: number; y: number }[][] = []
+  public generateMap(width: number, height: number, mapSize: number) {
+    let map: number[][] = []
 
     const dotProdGrid = (x: number, y: number, vx: number, vy: number) => {
       const dVect = { x: x - vx, y: y - vy }
@@ -149,42 +149,51 @@ export default class MapGenerator {
       return a + smootherstep(x) * (b - a)
     }
 
-    for (let i = 0; i < width; i++) {
-      let row: { x: number; y: number }[] = []
-      for (let j = 0; j < height; j++) {
-        // const tl = dotProdGrid()
+    const resolution = width * height
+    const pixelSize = mapSize / resolution
+    for (let x = 0; x < height; x += pixelSize) {
+      let row: number[] = []
+      for (let y = 0; y < width; y += pixelSize) {
+        const xf = Math.floor(x)
+        const yf = Math.floor(y)
+        const tl = dotProdGrid(x, y, xf, yf)
+        const tr = dotProdGrid(x, y, xf + 1, yf)
+        const bl = dotProdGrid(x, y, xf, yf + 1)
+        const br = dotProdGrid(x, y, xf + 1, yf + 1)
+        const interXt = interp(x - xf, tl, tr)
+        const interXb = interp(x - xf, bl, br)
+        const value = interp(y - yf, interXt, interXb)
+        row.push(value)
       }
       map.push(row)
     }
-
     let min = 9999
     let max = -9999
     let sum = 0
-    for (let i = 0; i < width; i++) {
-      this.mapTiles[i] = []
-      for (let j = 0; j < height; j++) {
-        const distance = map[i][j].x - map[i][j].y
-        if (distance < -1) {
-          this.setPoint(i, j, new Water())
-        } else if (distance < 0 || (distance > 0 && distance < 1)) {
-          this.setPoint(i, j, new Plain())
+    for (let x = 0; x < (resolution / mapSize) * width; x++) {
+      this.mapTiles[x] = []
+      for (let y = 0; y < (resolution / mapSize) * height; y++) {
+        if (map[x][y] < -0.5) {
+          this.setPoint(x, y, new Water())
+        } else if (map[x][y] > 0.5) {
+          this.setPoint(x, y, new Mountain())
         } else {
-          this.setPoint(i, j, new Mountain())
+          this.setPoint(x, y, new Plain())
         }
-        if (distance < min) {
-          min = distance
+        if (map[x][y] < min) {
+          min = map[x][y]
         }
-        if (distance > max) {
-          max = distance
+        if (map[x][y] > max) {
+          max = map[x][y]
         }
-        sum = sum + distance
+        sum = sum + map[x][y]
       }
     }
-    const moyenne = sum / (width * height)
+    const moyenne = sum / (width * height * 121)
 
-    console.log(min)
-    console.log(max)
-    console.log(moyenne)
+    console.log('min', min)
+    console.log('max', max)
+    console.log('moyenne', moyenne)
   }
 
   private calculateDistances(point1: MapPoint, point2: MapPoint) {

@@ -55,6 +55,7 @@ export default defineConfig({
       file: () => import('@adonisjs/transmit/transmit_provider'),
       environment: ['web', 'console', 'test', 'repl'],
     },
+    () => import('@adonisjs/cors/cors_provider'),
   ],
   directories: {
     config: 'config',

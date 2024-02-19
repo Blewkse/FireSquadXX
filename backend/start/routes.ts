@@ -19,6 +19,7 @@
 */
 
 import GameController from '#app/Controllers/Http/GameController'
+import MapGeneratorsController from '#app/Controllers/Http/MapGeneratorsController'
 import router from '@adonisjs/core/services/router'
 import transmit from '@adonisjs/transmit/services/main'
 import { randomUUID } from 'node:crypto'
@@ -56,3 +57,5 @@ router.get('/test-sse', async (context) => {
     transmit.broadcast('game', { hello: 'Hello from the server' })
   }, 1000)
 })
+
+router.get('api/maps/GenerateMap', MapGeneratorsController.generateMap)
