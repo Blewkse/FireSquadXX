@@ -4,10 +4,10 @@ import { RobotState, RobotType } from './Robots/enumRobot.js'
 class Fire {
   public id: string
   public positionsList: { x: number; y: number }[]
-  private robotsList: Robot[]
-  private pdv: number
+  public robotsList: Robot[]
+  public pdv: number
   private nbExtincteur: number = 0
-  private intervalAttacking: NodeJS.Timeout | null
+  private intervalAttacking: string | number | NodeJS.Timeout | undefined
 
   constructor() {
     this.pdv = Math.round(Math.random() * 1000)
@@ -16,7 +16,7 @@ class Fire {
   addRobot(robot: Robot) {
     if (robot.type === RobotType.extincteur) {
       this.nbExtincteur++
-      if (this.nbExtincteur > 0) {
+      if (this.nbExtincteur > 0 && robot.state === RobotState.inOperation) {
         this.putOutFire()
       }
     }
@@ -29,25 +29,25 @@ class Fire {
     })
     this.robotsList.slice(index, 1)
     if (robot.type === RobotType.extincteur) this.nbExtincteur--
-    if (this.nbExtincteur == 0) {
+    if (this.nbExtincteur === 0) {
       this.putInFire()
     }
   }
 
   putOutFire() {
-    if (this.intervalAttacking == null) {
+    if (this.intervalAttacking === null) {
       this.intervalAttacking = setInterval(() => {
         this.pdv - 50 * this.nbExtincteur
         if (this.pdv <= 0) {
-          //    notifier mediateur
+          clearInterval(this.intervalAttacking)
         }
       }, 1000)
     }
   }
 
   putInFire() {
-    if (this.intervalAttacking != null) {
-      this.intervalAttacking = null
+    if (this.intervalAttacking !== null) {
+      this.intervalAttacking = undefined
     }
   }
 }

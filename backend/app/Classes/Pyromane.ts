@@ -1,33 +1,36 @@
-import FireFactory from "./FireFactory"
+import Fire from './Fire.js'
+import FireFactory from './FireFactory.js'
 
 class Pyromane {
-  public id: string;
-  public position:Point;
- 
-  private molotov: number;
- 
-  constructor(public fireFactory: FireFactory) {
-    this.molotov = Math.round(Math.random() * 10);
-  }
+  public id: string
+  public position: Point
+  public fireFactory: FireFactory
+  public molotov = Math.round(Math.random() * 10)
+  public fires: Fire[]
 
-  throwMolotov(){
+  public throwMolotov() {
     for (let index = 0; index < this.molotov; index++) {
-      const firePLace = this.calculatePointInRadius(this.position,Math.round(Math.random() * 10),Math.round(Math.random() * 10))
-      this.fireFactory.create(firePLace)  
+      const firePLace = this.calculatePointInRadius(
+        this.position,
+        Math.round(Math.random() * 10),
+        Math.round(Math.random() * 10)
+      )
+      const fire = this.fireFactory.create(firePLace)
+      this.fires.push(fire)
     }
-    
-  };
+  }
 
-  calculatePointInRadius(pointOrigine: Point, rayon: number, angleEnRadians: number): Point {
-    const x = pointOrigine.x + rayon * Math.cos(angleEnRadians);
-    const y = pointOrigine.y + rayon * Math.sin(angleEnRadians);
-    return { x, y };
+  public calculatePointInRadius(pointOrigine: Point, rayon: number, angleEnRadians: number): Point {
+    const x = pointOrigine.x + rayon * Math.cos(angleEnRadians)
+    const y = pointOrigine.y + rayon * Math.sin(angleEnRadians)
+    return { x, y }
   }
- 
- 
 }
-interface Point { //extends TerritoryBurnable
-    x: number;
-    y: number;
-  }
-export default Pyromane;
+
+interface Point {
+  //extends TerritoryBurnable
+  x: number
+  y: number
+}
+
+export default Pyromane

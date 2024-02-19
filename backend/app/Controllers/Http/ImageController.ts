@@ -1,10 +1,11 @@
+/* eslint-disable unicorn/prefer-module */
 import sharp from 'sharp'
 import fs from 'node:fs'
 import path from 'node:path'
 
 class ImageController {
-  public async analyse() {
-    const imgPath = path.resolve(__dirname, '..', '..', 'assets', 'Pixil.png')
+  public async analyse(fileName: string) {
+    const imgPath = path.resolve(__dirname, '..', '..', 'assets', fileName)
 
     const image = sharp(imgPath)
     const metadata = await image.metadata()
@@ -35,9 +36,11 @@ class ImageController {
       path.resolve(__dirname, '..', '..', 'assets', 'matrix.json'),
       JSON.stringify(matrix)
     )
+
+    return matrix
   }
 }
 
 export default ImageController
 
-ImageController.prototype.analyse()
+ImageController.prototype.analyse('Pixil.png')
