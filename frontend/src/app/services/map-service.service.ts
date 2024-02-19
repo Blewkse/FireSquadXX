@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable()
-export default class MapService {
+@Injectable({
+  providedIn: 'root',
+})
+export class MapService {
   private baseUrl = 'http://localhost:8000';
 
   constructor(private httpClient: HttpClient) {}

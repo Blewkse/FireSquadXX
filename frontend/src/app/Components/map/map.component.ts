@@ -5,7 +5,8 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import MapService from '../../services/map-service.service';
+import { MapService } from '../../services/map-service.service';
+import { NavbarComponent } from '../navbar/navbar/navbar.component';
 
 type Tile = {
   color: string;
@@ -15,6 +16,9 @@ type Tile = {
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
+  standalone: true,
+  imports: [NavbarComponent],
+  providers: [MapService],
   styleUrl: './map.component.scss',
 })
 export class MapComponent implements AfterViewInit {
