@@ -131,15 +131,28 @@ export default class MapGenerator {
   public generateMap(width: number, height: number) {
     let map: { x: number; y: number }[][] = []
 
+    const dotProdGrid = (x: number, y: number, vx: number, vy: number) => {
+      const dVect = { x: x - vx, y: y - vy }
+      const gVect = randomUnitVector()
+      return dVect.x * gVect.x + dVect.y * gVect.y
+    }
+
     const randomUnitVector = () => {
       let theta = Math.random() * 2 * Math.PI
       return { x: Math.cos(theta), y: Math.sin(theta) }
     }
 
+    const smootherstep = (x: number) => {
+      return 6 * x ** 5 - 15 * x ** 4 + 10 * x ** 3
+    }
+    const interp = (x: number, a: number, b: number) => {
+      return a + smootherstep(x) * (b - a)
+    }
+
     for (let i = 0; i < width; i++) {
       let row: { x: number; y: number }[] = []
       for (let j = 0; j < height; j++) {
-        row.push(randomUnitVector())
+        const tl = dot_prod_grid()
       }
       map.push(row)
     }
