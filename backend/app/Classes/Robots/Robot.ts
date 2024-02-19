@@ -1,10 +1,11 @@
-import { robotState, robotType } from './enumRobot.js'
-import Fire from '../Fire.js'
+import { robotState, robotType } from "./enumRobot";
+import Fire from "../Fire";
+import { Dijkstra } from "../Dijkstra";
 
-type Position = {
-  x: number
-  y: number
-}
+export type Position = {
+  x: number;
+  y: number;
+};
 
 abstract class Robot {
   id: number
@@ -20,23 +21,28 @@ abstract class Robot {
     this.id = id
   }
 
-  async travelTo(x: number, y: number, fire?: Fire, refuel?: boolean) {
-    this.state = refuel ? robotState.travelingToRefuel : robotState.travelingToOperation
-    const path = new Array<Position>() //algo renaud pathfinding
-    for (const element of path) {
-      this.position.x = element.x
-      this.position.y = element.y
-      await this.wait(1000 * (1 / this.speed))
-    }
+  findShortestPathToFire(matrix: number[][], fire: Fire) {
+    const closestFire = this.findClosestFire(fire);
 
-    this.state = refuel ? robotState.refueling : robotState.inOperation
-    if (fire) {
-      fire.addRobot(this)
-    }
+    return Dijkstra.findShortestPath(matrix, this.position, closestFire);
   }
 
-  async wait(delay: number) {
-    return await setTimeout(() => {}, delay)
+  findShortestPathToRefuel(matrix: number[][], refuel: Position) {
+    return Dijkstra.findShortestPath(matrix, this.position, refuel);
+  }
+
+  findClosestFire(fire: Fire) {
+    return fire.positionsList.reduce((prev, curr) => {
+      const prevDist = Math.sqrt(
+        Math.pow(prev.x - this.position.x, 2) +
+          Math.pow(prev.y - this.position.y, 2)
+      );
+      const currDist = Math.sqrt(
+        Math.pow(curr.x - this.position.x, 2) +
+          Math.pow(curr.y - this.position.y, 2)
+      );
+      return prevDist < currDist ? prev : curr;
+    }, fire.positionsList[0]);
   }
 }
 
