@@ -1,6 +1,6 @@
-import TerritoryUnburnable from "../TerritoryUnburnable";
+import TerritoryUnburnable from '../TerritoryUnburnable.js'
 
 class Road extends TerritoryUnburnable {
-  public type: "road" = "road";
-  public color = "#000000";
+  public type: 'road' = 'road'
+  public color = '#000000'
 }

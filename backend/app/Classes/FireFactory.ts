@@ -1,16 +1,16 @@
-import Fire from "./Fire";
+import Fire from './Fire.js'
 
 class FireFactory {
   static create(position: { x: number; y: number }) {
-    const fire = new Fire();
-    fire.positionsList = [position];
-    return fire;
+    const fire = new Fire()
+    fire.positionsList = [position]
+    return fire
   }
 
   static update(fire: Fire, newPosition: { x: number; y: number }) {
-    const { positionsList } = fire;
-    positionsList.push(newPosition);
+    const { positionsList } = fire
+    positionsList.push(newPosition)
   }
 }
 
-export default FireFactory;
+export default FireFactory

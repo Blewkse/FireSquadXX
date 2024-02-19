@@ -1,21 +1,21 @@
 // import { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import sharp from "sharp";
-import fs from "fs";
-import path from "path";
+import sharp from 'sharp'
+import fs from 'node:fs'
+import path from 'node:path'
 
 class ImageController {
   public async analyse() {
-    const imgPath = path.resolve(__dirname, "..", "..", "assets", "Pixil.png");
+    const imgPath = path.resolve(__dirname, '..', '..', 'assets', 'Pixil.png')
 
-    const image = sharp(imgPath);
-    const metadata = await image.metadata();
-    const rowImageData = await image.raw().toBuffer();
+    const image = sharp(imgPath)
+    const metadata = await image.metadata()
+    const rowImageData = await image.raw().toBuffer()
 
-    const matrix = [] as any[][];
-    let pixelIndex = 0;
+    const matrix = [] as any[][]
+    let pixelIndex = 0
 
     for (let i = 0; i < metadata.height!; i++) {
-      const row = [] as any[];
+      const row = [] as any[]
       for (let j = 0; j < metadata.width!; j++) {
         const pixel = {
           x: j,
@@ -25,20 +25,20 @@ class ImageController {
             g: rowImageData[pixelIndex + 1],
             b: rowImageData[pixelIndex + 2],
           },
-        };
-        row.push(pixel);
-        pixelIndex += 4;
+        }
+        row.push(pixel)
+        pixelIndex += 4
       }
-      matrix.push(row);
+      matrix.push(row)
     }
 
     fs.writeFileSync(
-      path.resolve(__dirname, "..", "..", "assets", "matrix.json"),
+      path.resolve(__dirname, '..', '..', 'assets', 'matrix.json'),
       JSON.stringify(matrix)
-    );
+    )
   }
 }
 
-export default ImageController;
+export default ImageController
 
-ImageController.prototype.analyse();
+ImageController.prototype.analyse()
