@@ -1,9 +1,8 @@
-import { RobotFactory } from './Robots/RobotFactory.js'
+import RobotFactory from './Robots/RobotFactory.js'
 import PyromaneFactory from './PyromaneFactory.js'
 import Fire from './Fire.js'
 import Robot from './Robots/Robot.js'
 import Pyromane from './Pyromane.js'
-import ImageController from '#app/Controllers/Http/ImageController'
 
 class Game {
   public robotFactory = new RobotFactory()
@@ -13,9 +12,7 @@ class Game {
   public matrix: number[][]
 
   async createMatrix(fileName: string) {
-    const imageController = new ImageController()
-    const matrix = await imageController.analyse(fileName)
-    this.matrix = matrix
+    this.matrix = []
   }
 
   public createPyromane(position: { x: number; y: number }) {

@@ -34,7 +34,7 @@ router.get('/game/', async ({ request }) => {
   return gameController.game
 })
 
-router.get('/game', async (context) => {
+router.get('/test-sse', async (context) => {
   const { request, response } = context
 
   transmit.$createStream(request, response)
