@@ -18,9 +18,17 @@
 |
 */
 
+<<<<<<< HEAD
 import Route from "@ioc:Adonis/Core/Route";
 import "./routes/map";
 
 Route.get("/", async () => {
   return { hello: "world" };
 });
+=======
+import router from '@adonisjs/core/services/router'
+
+router.get('/', async () => {
+  return { hello: 'world' }
+})
+>>>>>>> f5eddbd3ef424a62c0096c08c352bbb0e1120df0

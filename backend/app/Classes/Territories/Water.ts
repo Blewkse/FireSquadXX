@@ -1,4 +1,4 @@
-import TerritoryUnburnable from "../TerritoryUnburnable";
+import TerritoryUnburnable from '../TerritoryUnburnable.js'
 
 export default class Water extends TerritoryUnburnable {
   public type: "water" = "water";

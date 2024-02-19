@@ -1,4 +1,4 @@
-import TerritoryBurnable from "../TerritoryBurnable";
+import TerritoryBurnable from '../TerritoryBurnable.js'
 
 export default class Forest extends TerritoryBurnable {
   public propagationTime = 30;

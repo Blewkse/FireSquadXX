@@ -1,15 +1,15 @@
-import Robot from "./Robot";
-import { robotType } from "./enumRobot";
+import Robot from './Robot.js'
+import { RobotType } from './enumRobot.js'
 
 class Citerne extends Robot {
   constructor(id: number) {
-    super(id);
-    this.speed = 25;
-    this.canPutOut = false;
-    this.capacity = 1000;
-    this.waterLvL = 1000;
-    this.type = robotType.citerne;
+    super(id.toString())
+    this.speed = 25
+    this.canPutOut = false
+    this.capacity = 1000
+    this.waterLvL = 1000
+    this.type = RobotType.citerne
   }
 }
 
-export default Citerne;
+export default Citerne

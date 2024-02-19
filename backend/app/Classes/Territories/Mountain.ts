@@ -1,4 +1,4 @@
-import TerritoryBurnable from "../TerritoryBurnable";
+import TerritoryBurnable from '../TerritoryBurnable.js'
 
 class Mountain extends TerritoryBurnable {
   public propagationTime: 120;
@@ -8,4 +8,4 @@ class Mountain extends TerritoryBurnable {
   public color = "#C9C5CB";
 }
 
-export default Mountain;
+export default Mountain

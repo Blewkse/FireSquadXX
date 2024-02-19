@@ -2,7 +2,7 @@ import Robot from "./Robot";
 import Citerne from "./Citerne";
 import Rapido from "./Rapido";
 import Extincteur from "./Extincteur";
-import { robotState } from "./enumRobot";
+import { RobotState } from "./enumRobot";
 import { Observer, Observable } from "../Interfaces/Observer";
 
 class RobotFactory implements Observable {
@@ -69,7 +69,7 @@ class RobotFactory implements Observable {
   public removeCiterne() {
     for (let i = 0; i < this.listRobot.length; i++) {
       if (this.listRobot[i] instanceof Citerne) {
-        if (this.listRobot[i].state != robotState.inOperation) {
+        if (this.listRobot[i].state != RobotState.inOperation) {
           this.listRobot.splice(i, 1);
           break;
         }
@@ -80,7 +80,7 @@ class RobotFactory implements Observable {
   public removeRapido() {
     for (let i = 0; i < this.listRobot.length; i++) {
       if (this.listRobot[i] instanceof Rapido) {
-        if (this.listRobot[i].state != robotState.inOperation) {
+        if (this.listRobot[i].state != RobotState.inOperation) {
           this.listRobot.splice(i, 1);
           break;
         }
@@ -91,7 +91,7 @@ class RobotFactory implements Observable {
   public removeExtincteur() {
     for (let i = 0; i < this.listRobot.length; i++) {
       if (this.listRobot[i] instanceof Extincteur) {
-        if (this.listRobot[i].state != robotState.inOperation) {
+        if (this.listRobot[i].state != RobotState.inOperation) {
           this.listRobot.splice(i, 1);
           break;
         }

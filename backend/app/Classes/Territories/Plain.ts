@@ -1,4 +1,4 @@
-import TerritoryBurnable from "../TerritoryBurnable";
+import TerritoryBurnable from '../TerritoryBurnable.js'
 
 class Plain extends TerritoryBurnable {
   public propagationTime: 60;
@@ -8,4 +8,4 @@ class Plain extends TerritoryBurnable {
   public color = "#718C60";
 }
 
-export default Plain;
+export default Plain

@@ -1,11 +1,6 @@
-/**
- * Config source: https://git.io/JfefC
- *
- * Feel free to let us know via PR, if you find something broken in this config
- * file.
- */
+import { defineConfig } from '@adonisjs/cors'
 
-import type { CorsConfig } from "@ioc:Adonis/Core/Cors";
+import type { CorsConfig } from '@ioc:Adonis/Core/Cors'
 
 const corsConfig: CorsConfig = {
   /*
@@ -44,7 +39,7 @@ const corsConfig: CorsConfig = {
   |                     one of the above values.
   |
   */
-  origin: ["http://localhost:8001"],
+  origin: ['http://localhost:8001'],
 
   /*
   |--------------------------------------------------------------------------
@@ -56,7 +51,7 @@ const corsConfig: CorsConfig = {
   |
   | Following is the list of default methods. Feel free to add more.
   */
-  methods: ["GET", "HEAD", "POST", "PUT", "DELETE"],
+  methods: ['GET', 'HEAD', 'POST', 'PUT', 'DELETE'],
 
   /*
   |--------------------------------------------------------------------------
@@ -98,12 +93,12 @@ const corsConfig: CorsConfig = {
   |
   */
   exposeHeaders: [
-    "cache-control",
-    "content-language",
-    "content-type",
-    "expires",
-    "last-modified",
-    "pragma",
+    'cache-control',
+    'content-language',
+    'content-type',
+    'expires',
+    'last-modified',
+    'pragma',
   ],
 
   /*
@@ -129,6 +124,6 @@ const corsConfig: CorsConfig = {
   |
   */
   maxAge: 90,
-};
+}
 
-export default corsConfig;
+export default corsConfig

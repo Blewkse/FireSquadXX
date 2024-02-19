@@ -9,23 +9,60 @@
     "test": "node ace test"
   },
   "devDependencies": {
-    "@adonisjs/assembler": "^5.9.6",
-    "@japa/preset-adonis": "^1.2.0",
-    "@japa/runner": "^2.5.1",
+    "@adonisjs/assembler": "^7.1.1",
+    "@adonisjs/eslint-config": "^1.2.1",
+    "@adonisjs/prettier-config": "^1.2.1",
+    "@adonisjs/tsconfig": "^1.2.1",
+    "@japa/plugin-adonisjs": "^3.0.0",
+    "@japa/runner": "^3.1.1",
+    "@swc/core": "^1.4.2",
+    "@types/luxon": "^3.4.2",
+    "@types/node": "^20.11.19",
     "@types/proxy-addr": "^2.0.3",
     "@types/source-map-support": "^0.5.10",
-    "adonis-preset-ts": "^2.1.0",
-    "pino-pretty": "^10.3.0",
-    "typescript": "~4.6",
-    "youch": "^3.3.3",
-    "youch-terminal": "^2.2.3"
+    "eslint": "^8.56.0",
+    "pino-pretty": "^10.3.1",
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "~4.6"
   },
   "dependencies": {
-    "@adonisjs/core": "^5.9.0",
-    "@adonisjs/repl": "^3.1.11",
+    "@adonisjs/core": "^6.2.3",
+    "@adonisjs/cors": "^2.2.1",
+    "@adonisjs/transmit": "^0.2.3",
+    "@adonisjs/validator": "^13.0.2",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.2.1",
-    "sharp": "^0.33.1",
-    "source-map-support": "^0.5.21"
+    "sharp": "^0.33.1"
+  },
+  "type": "module",
+  "eslintConfig": {
+    "extends": [
+      "@adonisjs/eslint-config/app"
+    ],
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "rules": {
+      "@typescript-eslint/explicit-member-accessibility": "off",
+      "unicorn/filename-case": "off",
+      "@typescript-eslint/no-shadow": "off"
+    }
+  },
+  "prettier": "@adonisjs/prettier-config",
+  "imports": {
+    "#controllers/*": "./app/controllers/*.js",
+    "#exceptions/*": "./app/exceptions/*.js",
+    "#models/*": "./app/models/*.js",
+    "#services/*": "./app/services/*.js",
+    "#listeners/*": "./app/listeners/*.js",
+    "#events/*": "./app/events/*.js",
+    "#middleware/*": "./app/middleware/*.js",
+    "#validators/*": "./app/validators/*.js",
+    "#start/*": "./start/*.js",
+    "#config/*": "./config/*.js",
+    "#app/*": "./app/*.js",
+    "#database/*": "./database/*.js",
+    "#contracts/*": "./contracts/*.js"
   }
 }

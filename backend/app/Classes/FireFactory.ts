@@ -21,8 +21,8 @@ class FireFactory implements Observable {
   }
 
   static update(fire: Fire, newPosition: { x: number; y: number }) {
-    const { positionsList } = fire;
-    positionsList.push(newPosition);
+    const { positionsList } = fire
+    positionsList.push(newPosition)
   }
 
   addObserver(observer: Observer): void {
@@ -47,4 +47,4 @@ class FireFactory implements Observable {
   }
 }
 
-export default FireFactory;
+export default FireFactory
