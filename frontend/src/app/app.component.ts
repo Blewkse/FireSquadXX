@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { MapComponent } from './components/map/map.component';
+import { MapComponent } from './components/map/mapw.component';
 import { NavbarComponent } from './components/navbar/navbar/navbar.component';
 
 @Component({
