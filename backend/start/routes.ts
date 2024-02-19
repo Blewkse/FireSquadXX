@@ -18,16 +18,41 @@
 |
 */
 
-import { router } from '@adonisjs/core/services/router'
 import GameController from '#app/Controllers/Http/GameController'
+import router from '@adonisjs/core/services/router'
+import transmit from '@adonisjs/transmit/services/main'
+import { randomUUID } from 'node:crypto'
 
-Route.get("/", async () => {
-  return { hello: "world" };
-});
+router.get('/', async () => {
+  return { hello: 'world' }
+})
 
 router.get('/game/', async ({ request }) => {
   const { x, y } = request.qs()
   const gameController = new GameController()
   gameController.main({ x, y })
   return gameController.game
+})
+
+router.get('/game', async (context) => {
+  const { request, response } = context
+
+  transmit.$createStream(request, response)
+  transmit.on('subscribe', (channel) => {
+    console.log(channel)
+  })
+  console.log('uid', request.input('uid'))
+
+  const userUid = request.input('uid') || randomUUID()
+
+  console.log(await transmit.$subscribeToChannel(userUid, 'eazezzaez', context))
+
+  const ok = await transmit.$subscribeToChannel(userUid, 'game', context)
+  console.log(ok)
+
+  transmit.broadcast('game', { hello: 'Hello from the server' })
+
+  setTimeout(() => {
+    transmit.broadcast('game', { hello: 'Hello from the server' })
+  }, 1000)
 })

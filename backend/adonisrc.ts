@@ -79,7 +79,6 @@ export default defineConfig({
     middleware: 'app/middleware',
     policies: 'app/policies',
     validators: 'app/validators',
-    events: 'app/events',
     listeners: 'app/listeners',
     stubs: 'stubs',
   },
