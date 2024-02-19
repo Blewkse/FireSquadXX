@@ -2,5 +2,5 @@ import TerritoryUnburnable from "../TerritoryUnburnable";
 
 export default class Casern extends TerritoryUnburnable {
   public type: "casern" = "casern";
-  public color = "#DA3832";
+  public color = "#F93943";
 }

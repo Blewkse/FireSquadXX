@@ -5,7 +5,7 @@ class Plain extends TerritoryBurnable {
   public type: "plain" = "plain";
   public isBurning = false;
   public canBurn = true;
-  public color = "#DAF8C2";
+  public color = "#718C60";
 }
 
 export default Plain;

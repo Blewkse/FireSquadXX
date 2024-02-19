@@ -6,9 +6,10 @@ const MapGeneratorsController = {
   generateMap({ response }: HttpContextContract) {
     const generator = MapGenerator.getInstance();
     generator.generateMap(500, 500);
-    const mapPixels = generator.getMapPixels();
+    const mapTiles = generator.getMapTiles();
 
-    return response.status(200).json({ success: true, data: mapPixels });
+    // return response.status(200).json({ success: true });
+    return response.status(200).json({ success: true, data: mapTiles });
   },
 };
 
