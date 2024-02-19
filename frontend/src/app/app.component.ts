@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { MapComponent } from "./components/map/map.component";
-import { NavbarComponent } from "./components/navbar/navbar/navbar.component";
+import { MapComponent } from './components/map/map.component';
+import { NavbarComponent } from './components/navbar/navbar/navbar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +12,12 @@ import { NavbarComponent } from "./components/navbar/navbar/navbar.component";
     CommonModule,
     RouterOutlet,
     MapComponent,
-    NavbarComponent
+    NavbarComponent,
+    HttpClientModule,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor() {
-
-  }
+  constructor() {}
 }

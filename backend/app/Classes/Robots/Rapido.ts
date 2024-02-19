@@ -2,8 +2,8 @@ import Robot from './Robot.js'
 import { RobotType } from './enumRobot.js'
 
 class Rapido extends Robot {
-  constructor(id: string) {
-    super(id)
+  constructor(id: number) {
+    super(id.toString())
     this.speed = 75
     this.canPutOut = false
     this.capacity = 100

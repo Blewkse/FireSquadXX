@@ -2,8 +2,8 @@ import Robot from './Robot.js'
 import { RobotType } from './enumRobot.js'
 
 class Extincteur extends Robot {
-  constructor(id: string) {
-    super(id)
+  constructor(id: number) {
+    super(id.toString())
     this.speed = 50
     this.canPutOut = true
     this.capacity = 250

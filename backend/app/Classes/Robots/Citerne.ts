@@ -2,8 +2,8 @@ import Robot from './Robot.js'
 import { RobotType } from './enumRobot.js'
 
 class Citerne extends Robot {
-  constructor(id: string) {
-    super(id)
+  constructor(id: number) {
+    super(id.toString())
     this.speed = 25
     this.canPutOut = false
     this.capacity = 1000

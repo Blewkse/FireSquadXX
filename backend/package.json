@@ -41,7 +41,7 @@
       "@adonisjs/eslint-config/app"
     ],
     "parserOptions": {
-      "project": "./backend/tsconfig.json"
+      "project": "./tsconfig.json"
     },
     "rules": {
       "@typescript-eslint/explicit-member-accessibility": "off",
