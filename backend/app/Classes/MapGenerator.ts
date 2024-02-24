@@ -25,175 +25,103 @@ export default class MapGenerator {
     return this.instance
   }
 
-  private setPoint(x: number, y: number, pointType: TerritoryBurnable | TerritoryUnburnable) {
-    if (!this.mapTiles[x]) {
-      this.mapTiles[x] = []
+  private setPoint(y: number, x: number, pointType: TerritoryBurnable | TerritoryUnburnable) {
+    if (!this.mapTiles[y]) {
+      this.mapTiles[y] = []
     }
-    this.mapTiles[x][y] = pointType
+    this.mapTiles[y][x] = pointType
   }
 
-  // public generateMap(width: number, height: number): void {
-  //   this.width = width;
-  //   this.height = height;
-  //   const villagesList: MapPoint[] = [];
-
-  //   //creation de la caserne
-  //   let center: MapPoint = {
-  //     x: 0,
-  //     y: 0,
-  //   };
-  //   center.x = width % 2 === 0 ? width / 2 : Math.floor(width / 2) + 1;
-  //   center.y = height % 2 === 0 ? height / 2 : Math.floor(height / 2) + 1;
-  //   villagesList.push(center);
-
-  //   this.setPoint(center.x, center.y, new Casern());
-
-  //   //creation des forets
-  //   let forestCount = 0;
-  //   while (forestCount < 5) {
-  //     const randomPoint: MapPoint = {
-  //       x: Math.floor(Math.random() * width),
-  //       y: Math.floor(Math.random() * height),
-  //     };
-  //     forestCount++;
-  //     this.setPoint(randomPoint.x, randomPoint.y, new Forest());
-  //     const radius = Math.floor(Math.random() * 100);
-  //     for (let i = randomPoint.x - radius; i < randomPoint.x + radius; i++) {
-  //       for (let j = randomPoint.y - radius; j < randomPoint.y + radius; j++) {
-  //         this.setPoint(i, j, new Forest());
-  //       }
-  //     }
-  //   }
-
-  //   // //creation des lacs
-  //   // let lakeCount = 0;
-  //   // while (lakeCount < 4) {
-  //   //   const randomPoint: MapPoint = {
-  //   //     x: Math.floor(Math.random() * width),
-  //   //     y: Math.floor(Math.random() * height),
-  //   //   };
-  //   //   lakeCount++;
-  //   //   this.setPoint(randomPoint.x, randomPoint.y, new Water());
-  //   //   const radius = Math.floor(Math.random() * 100);
-  //   //   for (let i = randomPoint.x - radius; i < randomPoint.x + radius; i++) {
-  //   //     for (let j = randomPoint.y - radius; j < randomPoint.y + radius; j++) {
-  //   //       this.setPoint(i, j, new Water());
-  //   //     }
-  //   //   }
-  //   // }
-
-  //   //creation des villages
-  //   let villagesCount = 0;
-  //   while (villagesCount < 7) {
-  //     let randomPoint: MapPoint;
-
-  //     do {
-  //       randomPoint = {
-  //         x: Math.floor(Math.random() * width),
-  //         y: Math.floor(Math.random() * height),
-  //       };
-  //     } while (
-  //       (randomPoint.x - center.x < 30 && randomPoint.y - center.y < 30) ||
-  //       (this.mapTiles[randomPoint.x] &&
-  //         this.mapTiles[randomPoint.x][randomPoint.y] instanceof Water)
-  //     );
-  //     villagesCount++;
-  //     this.setPoint(randomPoint.x, randomPoint.y, new Village());
-  //     villagesList.push(randomPoint);
-  //     const radius = 10;
-  //     for (let i = randomPoint.x - radius; i < randomPoint.x + radius; i++) {
-  //       for (let j = randomPoint.y - radius; j < randomPoint.y + radius; j++) {
-  //         this.setPoint(i, j, new Village());
-  //       }
-  //     }
-  //   }
-
-  //   //creation des chemins
-  //   // const maxDistance = 200;
-  //   // for(let i = 0; i < villagesList.length; i++){
-  //   //     const currentVillage = villagesList[i];
-  //   //     for(let j = 0; j < villagesList.length; j++){
-
-  //   //     }
-  //   // }
-  //   for (let i = 0; i < height; i++) {
-  //     if (!this.mapTiles[i]) {
-  //       this.mapTiles[i] = [];
-  //     }
-  //     for (let j = 0; j < width; j++) {
-  //       if (this.mapTiles[i][j] === undefined) {
-  //         this.setPoint(i, j, new Plain());
-  //       }
-  //     }
-  //   }
-  // }
-
-  public generateMap(width: number, height: number, mapSize: number) {
-    let map: number[][] = []
-
-    const dotProdGrid = (x: number, y: number, vx: number, vy: number) => {
-      const dVect = { x: x - vx, y: y - vy }
-      const gVect = randomUnitVector()
-      return dVect.x * gVect.x + dVect.y * gVect.y
-    }
-
-    const randomUnitVector = () => {
+  // grid size la taille de ma grille de gradient
+  //resolution le nombre de mes tiles
+  //octaves le nombre de couches que je vais additionner
+  public generateMap(gridSize: number, resolution: number) {
+    //calcule sur un cercle trigo l'angle du vecteur puis le regule entre 0 et 1
+    const randVect = () => {
       let theta = Math.random() * 2 * Math.PI
       return { x: Math.cos(theta), y: Math.sin(theta) }
     }
 
+    //genere la grille des gradient de reference
+    const generateGradientGrid = () => {
+      const gradientGrid: { x: number; y: number }[][] = []
+      for (let y = 0; y <= gridSize; y++) {
+        gradientGrid[y] = []
+        for (let x = 0; x <= gridSize; x++) {
+          gradientGrid[y].push(randVect())
+        }
+      }
+      return gradientGrid
+    }
+
+    //effectue un produit scalaire entre le gradient au point sur la grille et la distance avec le point de base
+    //cela permet de recuperer l'influence du point en fonction de sa force et sa distance
+    const dotProdGrid = (tilesY: number, tilesX: number, gridY: number, gridX: number) => {
+      const differenceVector = { x: tilesX - gridX, y: tilesY - gridY }
+      const gridDotVector = gradientGrid[gridY][gridX]
+
+      return differenceVector.x * gridDotVector.x + differenceVector.y * gridDotVector.y
+    }
+
+    //permet d'adoucir les transitions
     const smootherstep = (x: number) => {
       return 6 * x ** 5 - 15 * x ** 4 + 10 * x ** 3
     }
-    const interp = (x: number, a: number, b: number) => {
-      return a + smootherstep(x) * (b - a)
+
+    //shift = difference between the tile Y/X and the grid
+    // a and b are dot products of grid points
+    const interpolation = (shift: number, a: number, b: number) => {
+      return a + smootherstep(shift) * (b - a)
     }
 
-    const resolution = width * height
-    const pixelSize = mapSize / resolution
-    for (let x = 0; x < height; x += pixelSize) {
-      let row: number[] = []
-      for (let y = 0; y < width; y += pixelSize) {
-        const xf = Math.floor(x)
-        const yf = Math.floor(y)
-        const tl = dotProdGrid(x, y, xf, yf)
-        const tr = dotProdGrid(x, y, xf + 1, yf)
-        const bl = dotProdGrid(x, y, xf, yf + 1)
-        const br = dotProdGrid(x, y, xf + 1, yf + 1)
-        const interXt = interp(x - xf, tl, tr)
-        const interXb = interp(x - xf, bl, br)
-        const value = interp(y - yf, interXt, interXb)
-        row.push(value)
-      }
-      map.push(row)
+    const hasNoDecimal = (num: number) => {
+      return num === Math.floor(num)
     }
-    let min = 9999
-    let max = -9999
-    let sum = 0
-    for (let x = 0; x < (resolution / mapSize) * width; x++) {
-      this.mapTiles[x] = []
-      for (let y = 0; y < (resolution / mapSize) * height; y++) {
-        if (map[x][y] < -0.5) {
-          this.setPoint(x, y, new Water())
-        } else if (map[x][y] > 0.5) {
-          this.setPoint(x, y, new Mountain())
-        } else {
-          this.setPoint(x, y, new Plain())
-        }
-        if (map[x][y] < min) {
-          min = map[x][y]
-        }
-        if (map[x][y] > max) {
-          max = map[x][y]
-        }
-        sum = sum + map[x][y]
-      }
-    }
-    const moyenne = sum / (width * height * 121)
 
-    console.log('min', min)
-    console.log('max', max)
-    console.log('moyenne', moyenne)
+    // console.log(generateGradientGrid())
+
+    const gradientGrid = generateGradientGrid()
+    console.log(gradientGrid)
+    // const gradientGrids: { x: number; y: number }[][][] = []
+    // for (let i = 0; i < octaves; i++) {
+    //   gradientGrids.push(generateGradientGrid())
+    // }
+    try {
+      const gridSquareSize = resolution / gridSize
+      for (let y = 0; y < resolution; y++) {
+        if (hasNoDecimal(y / gridSquareSize)) {
+          console.log(y)
+        }
+        for (let x = 0; x < resolution; x++) {
+          const tilesY = y / gridSquareSize
+          const tilesX = x / gridSquareSize
+
+          const floorTilesY = Math.floor(tilesY)
+          const floorTilesX = Math.floor(tilesX)
+          let v: number = 0
+          const gridDotTL = dotProdGrid(tilesY, tilesX, floorTilesY + 1, floorTilesX)
+          const gridDotTR = dotProdGrid(tilesY, tilesX, floorTilesY + 1, floorTilesX + 1)
+          const gridDotBL = dotProdGrid(tilesY, tilesX, floorTilesY, floorTilesX)
+          const gridDotBR = dotProdGrid(tilesY, tilesX, floorTilesY, floorTilesX + 1)
+          const interpTop = interpolation(tilesX - floorTilesX, gridDotTL, gridDotTR)
+          const interpBot = interpolation(tilesX - floorTilesX, gridDotBL, gridDotBR)
+          v = interpolation(tilesY - floorTilesY, interpBot, interpTop)
+          // console.log(v)
+
+          if (v < -0.2) {
+            this.setPoint(y, x, new Water())
+          } else if (v > 0.2) {
+            this.setPoint(y, x, new Mountain())
+          } else if (v > 0.1) {
+            this.setPoint(y, x, new Forest())
+          } else {
+            this.setPoint(y, x, new Plain())
+          }
+        }
+      }
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   private calculateDistances(point1: MapPoint, point2: MapPoint) {

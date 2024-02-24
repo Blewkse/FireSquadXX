@@ -4,10 +4,11 @@ import { HttpContext } from '@adonisjs/core/http'
 const MapGeneratorsController = {
   generateMap({ response }: HttpContext) {
     const generator = MapGenerator.getInstance()
-    generator.generateMap(11, 11, 4)
+    generator.generateMap(4, 750 / 4)
+
     const mapTiles = generator.getMapTiles()
 
-    // return response.status(200).json({ success: true });
+    // return response.status(200).json({ success: true, data: gradients })
     return response.status(200).json({ success: true, data: mapTiles })
   },
 }
