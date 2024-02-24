@@ -35,7 +35,7 @@ export default class MapGenerator {
   // grid size la taille de ma grille de gradient
   //resolution le nombre de mes tiles
   //octaves le nombre de couches que je vais additionner
-  public generateMap(gridSize: number, resolution: number) {
+  public generateMap(gridSize: number, resolution: number, canvasSize: number) {
     //calcule sur un cercle trigo l'angle du vecteur puis le regule entre 0 et 1
     const randVect = () => {
       let theta = Math.random() * 2 * Math.PI
@@ -117,6 +117,41 @@ export default class MapGenerator {
           } else {
             this.setPoint(y, x, new Plain())
           }
+        }
+      }
+
+      const getRandomPoint = (max: number) => {
+        return Math.floor(Math.random() * max)
+      }
+      //add some villages in the plain
+      let i = 0
+      while (i < 5) {
+        const randomPoint = { x: getRandomPoint(resolution), y: getRandomPoint(resolution) }
+        if (!(this.mapTiles[randomPoint.y][randomPoint.x].type === 'plain')) {
+          continue
+        } else {
+          i === 2
+            ? this.setPoint(randomPoint.y, randomPoint.x, new Casern())
+            : this.setPoint(randomPoint.y, randomPoint.x, new Village())
+          const rayon = 2
+          const xMin = Math.max(randomPoint.x - rayon, 0)
+          const xMax = Math.min(randomPoint.x + 1 + rayon, resolution - 1)
+          const yMin = Math.max(randomPoint.y - rayon, 0)
+          const yMax = Math.max(randomPoint.y + rayon, resolution - 1)
+          for (let y = yMin; y <= yMax; y++) {
+            for (let x = xMin; x < xMax; x++) {
+              if (
+                Math.pow(x - randomPoint.x, 2) + Math.pow(y - randomPoint.y, 2) <=
+                Math.pow(rayon, 2)
+              ) {
+                if (this.mapTiles[y][x].type === 'plain') {
+                  i === 2 ? this.setPoint(y, x, new Casern()) : this.setPoint(y, x, new Village())
+                }
+              }
+            }
+          }
+
+          i++
         }
       }
     } catch (e) {

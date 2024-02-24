@@ -36,14 +36,14 @@ export class MapComponent implements AfterViewInit {
   drawMap(): void {
     const canvas = this.mapCanvas.nativeElement;
     const ctx = canvas.getContext('2d');
+    canvas.width = canvas.height = 750;
 
     if (!ctx) return;
 
-    const tileSize = 1;
+    const tileSize = 4;
 
     if (!this.mapTiles) return;
 
-    console.log(this.mapTiles.length);
     for (let i = 0; i < this.mapTiles.length; i++) {
       for (let j = 0; j < this.mapTiles[i].length; j++) {
         ctx.fillStyle = this.mapTiles[i][j].color;
