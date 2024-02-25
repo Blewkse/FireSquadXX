@@ -21,14 +21,14 @@ abstract class Robot {
     this.id = id
   }
 
-  findShortestPathToFire(matrix: number[][], fire: Fire) {
+  findShortestPathToFire(fire: Fire) {
     const closestFire = this.findClosestFire(fire)
 
-    return Dijkstra.findShortestPath(matrix, this.position, closestFire)
+    return Dijkstra.findShortestPath(this.position, closestFire)
   }
 
-  findShortestPathToRefuel(matrix: number[][], refuel: Position) {
-    return Dijkstra.findShortestPath(matrix, this.position, refuel)
+  findShortestPathToRefuel(refuel: Position) {
+    return Dijkstra.findShortestPath(this.position, refuel)
   }
 
   findClosestFire(fire: Fire) {
