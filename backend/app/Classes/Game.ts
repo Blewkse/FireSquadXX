@@ -1,5 +1,4 @@
 import RobotFactory from './Robots/RobotFactory.js'
-import PyromaneFactory from './PyromaneFactory.js'
 import Fire from './Fire.js'
 import Robot from './Robots/Robot.js'
 import Pyromane from './Pyromane.js'
@@ -9,18 +8,11 @@ class Game {
   public fireList = [] as Fire[]
   public robotList = [] as Robot[]
   public pyromane: Pyromane
-  public matrix: number[][]
 
-  async createMatrix(fileName: string) {
-    this.matrix = []
-  }
+  private clock: NodeJS.Timeout | undefined = undefined
+  private pyromaneClockCount: number = 0
 
-  public createPyromane(position: { x: number; y: number }) {
-    const pyromane = PyromaneFactory.create(position)
-    this.pyromane = pyromane
-    this.pyromane.throwMolotov()
-    this.fireList = this.pyromane.fires
-  }
+  private instance: Game
 
   public createRobots() {
     const robots = this.robotFactory.listRobot
@@ -29,8 +21,35 @@ class Game {
     })
   }
 
-  public updatePyromane(pyromane: Pyromane, newPosition: { x: number; y: number }) {
+  public updatePyromane() {
     PyromaneFactory.update(pyromane, newPosition)
+  }
+
+  getInstance() {
+    if (!this.instance) {
+      this.instance = new Game()
+    }
+    return this.instance
+  }
+
+  private update(): void {
+    if (this.pyromaneClockCount === 20) {
+      this.updatePyromane()
+    }
+    this.pyromaneClockCount++
+  }
+
+  public play(): void {
+    this.clock = setInterval(() => {
+      this.update()
+    }, 5000)
+  }
+
+  public stop(): void {
+    this.pyromane = new Pyromane()
+    if (this.clock !== undefined) {
+      clearInterval(this.clock)
+    }
   }
 }
 

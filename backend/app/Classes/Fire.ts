@@ -13,26 +13,26 @@ class Fire {
     this.pdv = Math.round(Math.random() * 1000)
   }
 
-  addRobot(robot: Robot) {
-    if (robot.type === RobotType.extincteur) {
-      this.nbExtincteur++
-      if (this.nbExtincteur > 0 && robot.state === RobotState.inOperation) {
-        this.putOutFire()
-      }
-    }
-    this.robotsList.push(robot)
-  }
+  // addRobot(robot: Robot) {
+  //   if (robot.type === RobotType.extincteur) {
+  //     this.nbExtincteur++
+  //     if (this.nbExtincteur > 0 && robot.state === RobotState.inOperation) {
+  //       this.putOutFire()
+  //     }
+  //   }
+  //   this.robotsList.push(robot)
+  // }
 
-  removeRobot(robot: Robot) {
-    const index = this.robotsList.findIndex((elem) => {
-      elem.id === robot.id
-    })
-    this.robotsList.slice(index, 1)
-    if (robot.type === RobotType.extincteur) this.nbExtincteur--
-    if (this.nbExtincteur === 0) {
-      this.putInFire()
-    }
-  }
+  // removeRobot(robot: Robot) {
+  //   const index = this.robotsList.findIndex((elem) => {
+  //     elem.id === robot.id
+  //   })
+  //   this.robotsList.slice(index, 1)
+  //   if (robot.type === RobotType.extincteur) this.nbExtincteur--
+  //   if (this.nbExtincteur === 0) {
+  //     this.putInFire()
+  //   }
+  // }
 
   putOutFire() {
     if (this.intervalAttacking === null) {

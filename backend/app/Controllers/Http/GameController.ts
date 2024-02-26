@@ -7,7 +7,6 @@ class GameController {
   public game = new Game()
 
   main(position: { x: number; y: number }) {
-    this.game.createMatrix('Pixil.png')
     this.game.createPyromane(position)
     this.game.createRobots()
 
