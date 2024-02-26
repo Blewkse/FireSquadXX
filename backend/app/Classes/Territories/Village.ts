@@ -1,12 +1,12 @@
 import TerritoryUnburnable from '../TerritoryUnburnable.js'
 
 export default class Village extends TerritoryUnburnable {
-  public type: 'village' = 'village'
-  public color = '#AB5049'
-  public id: number
-  public name: string
-  public position: { y: number; x: number }
-  region: string = ''
+  public override type: 'village' = 'village'; // Ajoutez 'override' ici
+  public override color?: string = '#AB5049'; // Ajoutez 'override' ici
+  public id: number;
+  public  name: string; // Ajoutez 'override' ici
+  public override position?: { y: number; x: number }; // Ajoutez 'override' ici
+  public region: string = '';
 
   constructor(id: number, position: { y: number; x: number }) {
     super()
