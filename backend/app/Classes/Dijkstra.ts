@@ -5,6 +5,10 @@ import TerritoryUnburnable from './TerritoryUnburnable.js'
 export class Dijkstra {
   private static matrix: number[][]
 
+  static setMatrix(matrix: number[][]) {
+    this.matrix = matrix
+  }
+
   static getNumberMatrixFromMatrixTiles(
     matrixTiles: (TerritoryBurnable | TerritoryUnburnable)[][]
   ) {
@@ -49,7 +53,11 @@ export class Dijkstra {
 
     // Helper function to check if a cell is valid
     const isValidCell = (row: number, col: number) => {
-      return row >= 0 && row < rows && col >= 0 && col < cols && this.matrix[col][row] !== 0
+      try {
+        return row >= 0 && row < rows && col >= 0 && col < cols && this.matrix[col][row] !== 0
+      } catch {
+        return false
+      }
     }
 
     // Initialize distance and visited arrays
@@ -79,7 +87,7 @@ export class Dijkstra {
         }
 
         return {
-          distance: dist,
+          distance: pathCoords.length,
           path: pathCoords.reverse(),
         }
       }
