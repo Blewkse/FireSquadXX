@@ -14,6 +14,7 @@ export default class MapGenerator {
   private static instance: MapGenerator
   private mapTiles: (TerritoryBurnable | TerritoryUnburnable)[][]
   private villagesList: Village[] = []
+  private resolution: number
 
   private width: Number
   private height: Number
@@ -36,10 +37,15 @@ export default class MapGenerator {
     this.mapTiles[y][x] = pointType
   }
 
+  public isValidCell(row: number, col: number) {
+    return row >= 0 && row < this.resolution && col >= 0 && col < this.resolution
+  }
+
   // grid size la taille de ma grille de gradient
   //resolution le nombre de mes tiles
   //octaves le nombre de couches que je vais additionner
   public generateMap(gridSize: number, resolution: number, canvasSize: number) {
+    this.resolution = resolution
     this.mapTiles = []
     this.villagesList = []
 
@@ -59,10 +65,6 @@ export default class MapGenerator {
         }
       }
       return gradientGrid
-    }
-
-    const isValidCell = (row: number, col: number) => {
-      return row >= 0 && row < resolution && col >= 0 && col < resolution
     }
 
     //effectue un produit scalaire entre le gradient au point sur la grille et la distance avec le point de base
@@ -149,7 +151,7 @@ export default class MapGenerator {
                 Math.pow(x - randomPoint.x, 2) + Math.pow(y - randomPoint.y, 2) <=
                 Math.pow(rayon, 2)
               ) {
-                if (isValidCell(x, y)) {
+                if (this.isValidCell(x, y)) {
                   if (this.mapTiles[y][x].type === 'plain') {
                     i === 2 ? this.setPoint(y, x, newVillage) : this.setPoint(y, x, newVillage)
                   }

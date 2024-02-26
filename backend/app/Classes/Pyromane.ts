@@ -1,6 +1,7 @@
 import Fire from './Fire.js'
 import FireFactory from './FireFactory.js'
 import { Observable, Observer } from './Interfaces/Observer.js'
+import MapGenerator from './MapGenerator.js'
 
 class Pyromane implements Observable {
   private position: { x: number; y: number }
@@ -19,36 +20,41 @@ class Pyromane implements Observable {
     this.listObserver.splice(observerIndex, 1)
   }
   notify(): void {
-    for (let observer of this.listObserver) observer.update(this)
+    for (let observer of this.listObserver) observer.updatePyromane(this)
   }
 
-  constructor(position: Point) {
-    this.position = position
-    this.fires = []
-  }
+  // public throwMolotov() {
+  //   const firePlace = this.calculatePointInRadius(
+  //     this.position,
+  //     Math.round(Math.random() * 10),
+  //     Math.round(Math.random() * 10)
+  //   )
+  //   this.fireFactory.create(firePlace)
+  // }
 
-  public throwMolotov() {
-    for (let index = 0; index < this.molotov; index++) {
-      const firePLace = this.calculatePointInRadius(
-        this.position,
-        Math.round(Math.random() * 10),
-        Math.round(Math.random() * 10)
-      )
-      this.fireFactory.create(firePLace)
+  // public calculatePointInRadius(
+  //   pointOrigine: { x: number; y: number },
+  //   rayon: number,
+  //   angleEnRadians: number
+  // ): { x: number; y: number } {
+  //   const x = pointOrigine.x + rayon * Math.cos(angleEnRadians)
+  //   const y = pointOrigine.y + rayon * Math.sin(angleEnRadians)
+  //   return { x, y }
+  // }
+
+  private update() {
+    const newPosition = { x: Math.random() * 2, y: Math.random() * 2 }
+    if (MapGenerator.getInstance().isValidCell(newPosition.y, newPosition.x)) {
+      this.position = newPosition
+      this.notify()
+    }
+
+    const isThrowingMolotov = Math.random() > 0.75
+
+    if (isThrowingMolotov) {
+      this.throwMolotov()
     }
   }
-
-  public calculatePointInRadius(
-    pointOrigine: { x: number; y: number },
-    rayon: number,
-    angleEnRadians: number
-  ): { x: number; y: number } {
-    const x = pointOrigine.x + rayon * Math.cos(angleEnRadians)
-    const y = pointOrigine.y + rayon * Math.sin(angleEnRadians)
-    return { x, y }
-  }
-
-  private update() {}
 
   public launchClock() {
     if (this.clock === undefined) {
