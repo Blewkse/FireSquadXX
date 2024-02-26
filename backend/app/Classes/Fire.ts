@@ -1,51 +1,41 @@
-import Robot from './Robots/Robot.js'
-import { RobotState, RobotType } from './Robots/enumRobot.js'
+import { randomUUID } from 'node:crypto'
+import { Observable } from './Interfaces/Observer.js'
 
-class Fire {
+class Fire extends Observable<Fire> {
   public id: string
   public positionsList: { x: number; y: number }[]
   public pdv: number
+  private fireInterval: NodeJS.Timeout
 
-  constructor() {
+  constructor(initialPosition: { x: number; y: number }) {
+    super()
+    this.id = randomUUID()
+    this.positionsList = [initialPosition]
     this.pdv = Math.round(Math.random() * 1000)
+    this.startFireExpandation()
   }
 
-  // addRobot(robot: Robot) {
-  //   if (robot.type === RobotType.extincteur) {
-  //     this.nbExtincteur++
-  //     if (this.nbExtincteur > 0 && robot.state === RobotState.inOperation) {
-  //       this.putOutFire()
-  //     }
-  //   }
-  //   this.robotsList.push(robot)
-  // }
+  private expandFire() {
+    const newPositions: { x: number; y: number }[] = []
 
-  // removeRobot(robot: Robot) {
-  //   const index = this.robotsList.findIndex((elem) => {
-  //     elem.id === robot.id
-  //   })
-  //   this.robotsList.slice(index, 1)
-  //   if (robot.type === RobotType.extincteur) this.nbExtincteur--
-  //   if (this.nbExtincteur === 0) {
-  //     this.putInFire()  //   }
-  // }
+    this.positionsList.forEach((position) => {
+      const { x, y } = position
+      newPositions.push({ x: x + 1, y }, { x: x - 1, y }, { x, y: y + 1 }, { x, y: y - 1 })
+    })
 
-  // putOutFire() {
-  //   if (this.intervalAttacking === null) {
-  //     this.intervalAttacking = setInterval(() => {
-  //       this.pdv - 50 * this.nbExtincteur
-  //       if (this.pdv <= 0) {
-  //         clearInterval(this.intervalAttacking)
-  //       }
-  //     }, 1000)
-  //   }
-  // }
+    this.positionsList = newPositions
+  }
 
-  // putInFire() {
-  //   if (this.intervalAttacking !== null) {
-  //     this.intervalAttacking = undefined
-  //   }
-  // }
+  private startFireExpandation() {
+    this.fireInterval = setInterval(() => {
+      this.expandFire()
+      this.notify(this)
+    }, 1000)
+  }
+
+  public stopFireExpandation() {
+    clearInterval(this.fireInterval)
+  }
 }
 
 export default Fire
