@@ -107,7 +107,7 @@ export class Dijkstra {
           const { r, c } = neighbor
 
           if (isValidCell(r, c)) {
-            const newDist = dist + this.matrix[r][c]
+            const newDist = dist + this.matrix[c][r]
             if (newDist < distance[r][c]) {
               distance[r][c] = newDist
               queue.push({ row: r, col: c, dist: newDist })
