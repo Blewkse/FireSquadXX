@@ -3,12 +3,22 @@ import Robot from '#app/Classes/Robots/Robot'
 import { RobotState } from '#app/Classes/Robots/enumRobot'
 import Game from '../../Classes/Game.js'
 
+export type HandleGameEvent = (event: Record<string, unknown>) => void
+
 class GameController {
   public game = new Game()
+  public onGameEvent: HandleGameEvent
+
+  constructor(onGameEvent: (event: Record<string, unknown>) => void) {
+    this.onGameEvent = onGameEvent
+    this.onGameEvent({ type: 'gameStarted' })
+  }
 
   main(position: { x: number; y: number }) {
     this.game.createPyromane(position)
     this.game.createRobots()
+
+    console.log(this.game.fireList)
 
     if (this.game.fireList.length > 0) {
       this.game.fireList.forEach((fire: Fire) => {

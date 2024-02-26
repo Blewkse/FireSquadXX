@@ -22,6 +22,11 @@ class Pyromane implements Observable {
     for (let observer of this.listObserver) observer.update(this)
   }
 
+  constructor(position: Point) {
+    this.position = position
+    this.fires = []
+  }
+
   public throwMolotov() {
     for (let index = 0; index < this.molotov; index++) {
       const firePLace = this.calculatePointInRadius(
