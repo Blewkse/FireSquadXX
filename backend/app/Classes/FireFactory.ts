@@ -14,7 +14,7 @@ class FireFactory implements Observable {
 
   public stopFactory(): void {}
 
-  static create(position: { x: number; y: number }): Fire {
+  public create(position: { x: number; y: number }): Fire {
     const fire = new Fire()
     fire.positionsList = [position]
     return fire
