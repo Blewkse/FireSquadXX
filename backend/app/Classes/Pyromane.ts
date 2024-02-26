@@ -10,15 +10,12 @@ class Pyromane {
 
   public throwMolotov() {
     for (let index = 0; index < this.molotov; index++) {
-      const firePLace = this.calculatePointInRadius(
-        this.position,
-        Math.round(Math.random() * 10),
-        Math.round(Math.random() * 10)
-      )
-      // const fire = this.fireFactory.create(firePLace)
-      // this.fires.push(fire)
+      const firePLace = this.calculatePointInRadius(this.position,Math.round(Math.random() * 10),Math.round(Math.random() * 10))
+      this.fireFactory.create(firePLace)  
     }
-  }
+    
+    
+  };
 
   public calculatePointInRadius(pointOrigine: Point, rayon: number, angleEnRadians: number): Point {
     const x = pointOrigine.x + rayon * Math.cos(angleEnRadians)

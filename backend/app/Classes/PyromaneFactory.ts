@@ -11,6 +11,7 @@ class PyromaneFactory {
   static update(pyromane: Pyromane, newPosition: { x: number; y: number }) {
     pyromane.position = newPosition
   }
+  
 }
 
 export default PyromaneFactory
