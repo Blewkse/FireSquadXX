@@ -6,24 +6,29 @@ import Pyromane from './Pyromane.js'
 
 class Game {
   public robotFactory = new RobotFactory()
-  public fireList = [] as Fire[]
-  public robotList = [] as Robot[]
+  public fireList: Fire[]
+  public robotList: Robot[]
   public pyromane: Pyromane
   public matrix: number[][]
+
+  constructor() {
+    this.fireList = []
+    this.robotList = []
+  }
 
   async createMatrix(fileName: string) {
     this.matrix = []
   }
 
   public createPyromane(position: { x: number; y: number }) {
-    const pyromane = PyromaneFactory.create(position)
-    this.pyromane = pyromane
+    this.pyromane = PyromaneFactory.create(position)
     this.pyromane.throwMolotov()
     this.fireList = this.pyromane.fires
   }
 
   public createRobots() {
     const robots = this.robotFactory.listRobot
+
     robots.forEach((robot: Robot) => {
       this.robotList.push(robot)
     })

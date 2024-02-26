@@ -14,6 +14,8 @@ class RobotFactory implements Observable {
   listObserver: Observer[]
 
   constructor() {
+    this.listObserver = []
+
     this.listRobot.push(new Citerne(this.nbCiterne + 1))
     this.nbCiterne++
     this.listRobot.push(new Citerne(this.nbCiterne + 1))

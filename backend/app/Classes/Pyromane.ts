@@ -8,6 +8,11 @@ class Pyromane {
   public molotov = Math.round(Math.random() * 10)
   public fires: Fire[]
 
+  constructor(position: Point) {
+    this.position = position
+    this.fires = []
+  }
+
   public throwMolotov() {
     for (let index = 0; index < this.molotov; index++) {
       const firePLace = this.calculatePointInRadius(this.position,Math.round(Math.random() * 10),Math.round(Math.random() * 10))

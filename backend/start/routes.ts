@@ -18,44 +18,31 @@
 |
 */
 
-import GameController from '#app/Controllers/Http/GameController'
+import { EventsStreaming } from '#app/Classes/EventsStreaming'
+import GameController, { HandleGameEvent } from '#app/Controllers/Http/GameController'
 import MapGeneratorsController from '#app/Controllers/Http/MapGeneratorsController'
 import router from '@adonisjs/core/services/router'
-import transmit from '@adonisjs/transmit/services/main'
-import { randomUUID } from 'node:crypto'
 
 router.get('/', async () => {
   return { hello: 'world' }
 })
 
-router.get('/game/', async ({ request }) => {
-  const { x, y } = request.qs()
-  const gameController = new GameController()
-  gameController.main({ x, y })
-  return gameController.game
-})
-
-router.get('/test-sse', async (context) => {
+router.get('/game/', async (context) => {
   const { request, response } = context
 
-  transmit.$createStream(request, response)
-  transmit.on('subscribe', (channel) => {
-    console.log(channel)
-  })
-  console.log('uid', request.input('uid'))
+  EventsStreaming.initializeStream(request, response)
+  EventsStreaming.subscribeToGameEvents(request.input('uid'), context)
 
-  const userUid = request.input('uid') || randomUUID()
+  const { x, y } = request.qs()
+  console.log('???????????????', x, y)
 
-  console.log(await transmit.$subscribeToChannel(userUid, 'eazezzaez', context))
+  const handleGameEvent: HandleGameEvent = (event) => {
+    EventsStreaming.sendGameEventToClient(event)
+  }
 
-  const ok = await transmit.$subscribeToChannel(userUid, 'game', context)
-  console.log(ok)
+  const gameController = new GameController(handleGameEvent)
 
-  transmit.broadcast('game', { hello: 'Hello from the server' })
-
-  setTimeout(() => {
-    transmit.broadcast('game', { hello: 'Hello from the server' })
-  }, 1000)
+  gameController.main({ x, y })
 })
 
 router.get('api/maps/GenerateMap', MapGeneratorsController.generateMap)
