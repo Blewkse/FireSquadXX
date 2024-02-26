@@ -9,14 +9,10 @@ class Mediator implements Observer {
   fireList: Fire[]
 
   constructor() {}
-
-  public newFire(fire: Fire) {}
-
-  public update(observable: Observable): void {
-    if (observable instanceof RobotFactory) {
-      this.robotList = observable.getRobotList()
-    } else if (observable instanceof FireFactory) {
-      // this.fireList = observable.
-    }
+  addFire(newFire: Fire): void {
+    throw new Error('Method not implemented.')
+  }
+  changeRobotState(newFire: Fire): void {
+    throw new Error('Method not implemented.')
   }
 }

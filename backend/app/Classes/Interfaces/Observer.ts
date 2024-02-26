@@ -1,5 +1,9 @@
+import Fire from '../Fire.js'
+import Robot from '../Robots/Robot.js'
+
 export interface Observer {
-  update(observable: Observable): void
+  addFire(newFire: Fire): void
+  changeRobotState(state: string, robot: Robot): void
 }
 
 export interface Observable {

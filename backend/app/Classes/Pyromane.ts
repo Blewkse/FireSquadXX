@@ -23,14 +23,13 @@ class Pyromane implements Observable {
   }
 
   public throwMolotov() {
-    for (let index = 0; index < 4; index++) {
+    for (let index = 0; index < this.molotov; index++) {
       const firePLace = this.calculatePointInRadius(
         this.position,
         Math.round(Math.random() * 10),
         Math.round(Math.random() * 10)
       )
-      // const fire = this.fireFactory.create(firePLace)
-      // this.fires.push(fire)
+      this.fireFactory.create(firePLace)
     }
   }
 
