@@ -5,3 +5,18 @@
   align-items: center;
   height: 100vh;
 }
+.canva_container{
+  position: relative;
+}
+.map1, .map2{
+  position: absolute;
+  
+}
+.map1{
+  top: 0;
+  left: 0;
+}
+.map2{
+  top: 0;
+  left: 0;
+}
