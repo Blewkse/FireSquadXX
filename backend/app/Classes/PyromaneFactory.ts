@@ -12,6 +12,7 @@ class PyromaneFactory {
     const { positionsList } = pyromane;
     positionsList.push(newPosition);
   }
+  
 }
 
 export default PyromaneFactory;

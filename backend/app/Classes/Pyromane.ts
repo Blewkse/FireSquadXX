@@ -16,6 +16,7 @@ class Pyromane {
       this.fireFactory.create(firePLace)  
     }
     
+    
   };
 
   calculatePointInRadius(pointOrigine: Point, rayon: number, angleEnRadians: number): Point {
