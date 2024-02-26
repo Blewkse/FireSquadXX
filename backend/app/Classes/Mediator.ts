@@ -2,17 +2,33 @@ import Fire from './Fire.js'
 import FireFactory from './FireFactory.js'
 import Robot from './Robots/Robot.js'
 import RobotFactory from './Robots/RobotFactory.js'
-import { Observer, Observable } from './Interfaces/Observer.js'
+import { Observable } from './Interfaces/Observer.js'
+import Pyromane from './Pyromane.js'
+import { EventsStreaming } from './EventsStreaming.js'
 
-class Mediator implements Observer {
+class Mediator extends Observable<Mediator> {
   robotList: Robot[]
   fireList: Fire[]
+  fireFactory: FireFactory
+  pyromane: Pyromane
 
-  constructor() {}
-  addFire(newFire: Fire): void {
-    throw new Error('Method not implemented.')
+  constructor(pyromane: Pyromane) {
+    super()
+    this.pyromane = pyromane
+    this.observePyromane()
   }
-  changeRobotState(newFire: Fire): void {
-    throw new Error('Method not implemented.')
+
+  private observePyromane(): void {
+    this.pyromane.addObserver((data) => this.updatePyromane(data))
   }
+
+  private updatePyromane(data: Pyromane) {
+    EventsStreaming.sendGameEventToClient({ pyromanePosition: { x: data.getPosition() } })
+  }
+  // addFire(newFire: Fire): void {
+  //   throw new Error('Method not implemented.')
+  // }
+  // changeRobotState(newFire: Fire): void {
+  //   throw new Error('Method not implemented.')
+  // }
 }

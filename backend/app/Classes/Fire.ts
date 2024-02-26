@@ -12,7 +12,7 @@ class Fire extends Observable<Fire> {
     this.id = randomUUID()
     this.positionsList = [initialPosition]
     this.pdv = Math.round(Math.random() * 1000)
-    this.startFireExpandation()
+    this.startFireExpendationClock()
   }
 
   private expandFire() {
@@ -26,15 +26,21 @@ class Fire extends Observable<Fire> {
     this.positionsList = newPositions
   }
 
-  private startFireExpandation() {
+  private startFireExpendationClock() {
     this.fireInterval = setInterval(() => {
-      this.expandFire()
-      this.notify(this)
+      if (Math.random() > 0.5) {
+        this.expandFire()
+        this.notify(this)
+      }
     }, 1000)
   }
 
-  public stopFireExpandation() {
+  public stopFireExpandationClock() {
     clearInterval(this.fireInterval)
+  }
+
+  public shuttingOutFire() {
+    this.pdv = this.pdv - 100
   }
 }
 

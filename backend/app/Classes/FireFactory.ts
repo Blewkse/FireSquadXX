@@ -1,49 +1,24 @@
 import Fire from './Fire.js'
-import { Observable, Observer } from './Interfaces/Observer.js'
+import { Observable } from './Interfaces/Observer.js'
 
-class FireFactory implements Observable {
-  listObserver: Observer[]
+class FireFactory extends Observable<FireFactory> {
+  private static instance: FireFactory
 
-  fireList: Fire[]
+  constructor() {
+    super()
+  }
 
-  timer: NodeJS.Timer | null
+  public static getInstance(): FireFactory {
+    if (!this.instance) {
+      this.instance = new FireFactory()
+    }
+    return this.instance
+  }
 
-  comstructor() {}
-
-  public startFactory(): void {}
-
-  public stopFactory(): void {}
-
-  public create(position: { x: number; y: number }): Fire {
-    const fire = new Fire()
+  public create(position: { x: number; y: number }): void {
+    const fire = new Fire(position)
     fire.positionsList = [position]
-    return fire
-  }
-
-  static update(fire: Fire, newPosition: { x: number; y: number }) {
-    const { positionsList } = fire
-    positionsList.push(newPosition)
-  }
-
-  addObserver(observer: Observer): void {
-    this.listObserver.push(observer)
-  }
-
-  removeObserver(observer: Observer): void {
-    const index = this.listObserver.findIndex((elem) => {
-      elem === observer
-    })
-    this.listObserver.splice(index, 1)
-  }
-
-  notify(): void {
-    this.listObserver.forEach((observer) => {
-      observer.update(this)
-    })
-  }
-
-  getFireList(): Fire[] {
-    return this.fireList
+    this.notify(this)
   }
 }
 
