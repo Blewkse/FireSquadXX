@@ -4,9 +4,11 @@ import {
   ElementRef,
   OnInit,
   ViewChild,
+  HostListener
 } from '@angular/core';
 import { MapService } from '../../services/map-service.service';
 import { NavbarComponent } from '../navbar/navbar/navbar.component';
+import Village from '../../../../../backend/app/Classes/Territories/Village';
 
 type Tile = {
   color: string;
@@ -23,7 +25,13 @@ type Tile = {
 })
 export class MapComponent implements AfterViewInit {
   mapTiles: Tile[][] = [];
+  villagesArray: Village[] = [];
   @ViewChild('mapCanvas') mapCanvas!: ElementRef<HTMLCanvasElement>;
+
+  @HostListener('mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    this.getMousePosition(event);
+  }
 
   constructor(private mapService: MapService) {}
   ngAfterViewInit(): void {
@@ -32,6 +40,29 @@ export class MapComponent implements AfterViewInit {
       this.drawMap();
     });
   }
+
+  getMousePosition(event: MouseEvent) {
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+
+    console.log('Mouse position:', mouseX, mouseY); // Débogage
+
+    for (const village of this.villagesArray) {
+      if (village.position) {
+        const villageX = village.position.x;
+        const villageY = village.position.y;
+
+        console.log('Village position:', villageX, villageY); // Débogage
+
+        const distanceThreshold = 10; // Ajustez cette valeur selon votre préférence
+        if (Math.abs(mouseX - villageX) <= distanceThreshold && Math.abs(mouseY - villageY) <= distanceThreshold) {
+          console.log(`La souris est sur le village ${village.name}`);
+          break;
+        }
+      }
+    }
+  }
+
 
   drawMap(): void {
     const canvas = this.mapCanvas.nativeElement;
